@@ -1,70 +1,212 @@
-# Getting Started with Create React App
+# NinjaCoder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+NinjaCoder provides some coding courses to children. Courses are added by tutors - teachers or web developers.
 
-In the project directory, you can run:
+## User Stories
 
-### `yarn start`
+-  **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
+-  **Signup:** As an anon I can sign up in the platform, as a parent or a tutor (teacher / web developers) so that I can access to my profile 
+-  **Login:** As a user I can login to the platform so that I can acess to my profile (profiles are different for parents and tutors)
+-  **Logout:** As a user I can logout from the platform so no one else can use my account
+-  **Buy Courses** As a user/parent I can buy a course for my child 
+-  **Review Courses** As a user/parent I can give a review to the courses that I've bought
+-  **Add Courses** As a user/tutor I can create and add courses in the platform so that parents can choose to buy it or get it for free
+-  **Edit Courses** As a user/tutor I can edit the courses that I added
+-  **List Courses** As an anon/user I can see all the courses library 
+-  **Search Courses** As a anon/user I can browse the library to find courses 
+-  **See my profile** As a user/parent I can see my profile and the list of courses that I've bought for my child. As a user/teacher I can see my profile and the list of courses that I've added. 
+-  **Check profile** As a user/parent I can view the profile of the tutors whose course interests me.
+-  **Edit my profile** As a user/parent/tutor I can edit my general informations
+-  **Send messages** As a user/parent/tutor I can send message 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Backlog
 
-### `yarn test`
+Messenger (add two models):
+- Users can send messages in 1:1
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Message model:
 
-### `yarn build`
+```javascript
+{
+  sender: [{type: Schema.Types.ObjectId, ref: 'User'}],
+  content: {type: String, required: true}
+  conversationId:  [{type: Schema.Types.ObjectId, ref: 'Conversation'}]
+}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+Conversation model:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```javascript
+{
+  participants: [{type: Schema.Types.ObjectId, ref: 'User'}]
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Calendar:
+- parent can book for some meetings or courses in 1:1 with the teacher for his child
 
-### `yarn eject`
+GoogleSignup:
+- parent can book for some meetings or courses in 1:1 with the teacher for his child
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Personalised search bar: 
+- according to the age and experience of the child, the content can change
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Parent model (add this key):
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```javascript
+{
+experience: {type: String, enum: [beginner, advanced, expert]}
+}
+```
 
-## Learn More
+  
+# Client / Frontend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## React Router Routes (React App)
+| Path                      | Component                      | Permissions | Behavior                                                     |
+| ------------------------- | --------------------           | ----------- | ------------------------------------------------------------ |
+| `/`                       | Landing page                     | public `<Route>`            | Home page - popup for signIn or Register                                         |
+| `/signup`                 | SignupPage                     | public `<Route>`     | Signup form, link to login, navigate to profile page after signup |
+| `/login`                  | LoginPage                      | public `<Route>`    | Login form, link to signup, navigate to profile page after login  |
+| `/logout`                 | n/a                            | user only `<PrivateRoute>`  | Navigate to homepage after logout, expire session             |
+| `/backlog/series`         | NavBar, ElementList, FooterBar | user only `<PrivateRoute>`  | Shows all tv series on backlog                                |
+| `/backlog/films`          | NavBar, ElementList, FooterBar | user only `<PrivateRoute>`  | Shows all films on backlog                                    |
+| `/backlog/games`          | NavBar, ElementList, FooterBar | user only `<PrivateRoute>`  | Shows all games on backlog                                    |
+| `/search/series`          | SearchForm, SearchResults      | user only  `<PrivateRoute>` | Search a tv series to be added                                |
+| `/search/films`           | SearchForm, SearchResults      | user only `<PrivateRoute>`  | Search a film to be added                                     |
+| `/search/games`           | SearchForm, SearchResults      | user only `<PrivateRoute>`  | Search a game to be added                                     |
+| `/add/:id`                | ElementInfo                    | user only `<PrivateRoute>`  | Add an element to the backlog                                 |
+| `/profile`                | Profile, Stats                 | user only  `<PrivateRoute>` | Check profile with stat information                           |
+| `/done/series`            | Done list for Series           | user only  `<PrivateRoute>` | Shows all tv series finished                                  |
+| `/done/films`             | Done list for films            | user only `<PrivateRoute>`  | Shows all films finished                                      |
+| `/done/games`             | Done list for games            | user only `<PrivateRoute>`  | Shows all videogames finished                                 |
+          
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Components
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+## IO
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Services
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Auth Service
+  - auth.login(user)
+  - auth.signup(user)
+  - auth.logout()
+  - auth.me()
+  - auth.getUser() // synchronous
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Server
 
-### Deployment
+## Models
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Parent model
 
-### `yarn build` fails to minify
+```javascript
+{
+  username: {type: String, required: true, unique: true},
+  kidAge: {type: Number, required: true},
+  password: {type: String, required: true},
+  email: {type: String, required: true, unique: true},
+  profilePic: {type: String},
+  coursesBooked: [{type: Schema.Types.ObjectId, ref: 'Course'}]
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Tutor model
+
+```javascript
+{
+  username: {type: String, required: true, unique: true}
+  email: {type: String, required: true, unique: true}
+  password: {type: String, required: true}
+  profilePic: {type: String}
+  coursesAdded: [{type: Schema.Types.ObjectId, ref: 'Course'}]
+}
+```
+
+Course model
+
+```javascript
+{
+  name: {type: String, required: true, unique: true}
+  description: {type: String, required: true}
+  tutor: [{type: Schema.Types.ObjectId, ref: 'User'}]
+  price: {type: Number, required: true}
+  minAge: {type: Number, required: true}
+  imageUrl: {type: String, required: true}
+  videoUrl: {type: String, required: true}
+  lessons: [{type: Schema.Types.ObjectId, ref: 'Lesson'}]
+}
+```
+Lesson model
+
+```javascript
+{
+  name: {type: String, required: true}
+  description: {type: String, required: true}
+  media: {type: String, required: true}
+  order: {type: Number, required: true}
+}
+```
+Review model
+
+```javascript
+{
+  rate: {type: Number, required: true},
+  date: {type: Date, required: true},
+  feedback: {type: String, required: true},
+  courseId: [{type: Schema.Types.ObjectId, ref: 'Course'}]
+  userId: [{type: Schema.Types.ObjectId, ref: 'User'}]
+}
+
+```
+## API Endpoints/Backend Routes
+
+| HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
+| ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
+| GET         | `/auth/profile    `           | Saved session                | 200            | 404          | Check if user is logged in and return profile page           |
+| POST        | `/auth/signup`                | {name, email, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
+| POST        | `/auth/login`                 | {username, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session    |
+| POST        | `/auth/logout`                | (empty)                      | 204            | 400          | Logs out the user                                            |
+| POST        |  `/`             |  |                | 400          |                                              |
+| GET         |             |                              |                | 400          |                                           |
+| GET         |               |                              |                |              |                                                             |                    
+| GET         |             |                              |                |              |                                         |
+| GET         |                        |                              | 201            | 400          |                                                       |
+| PUT         |                 |                              | 200            | 400          |                                               |
+| DELETE      |                  |                              | 201            | 400          |                                            |
+| GET         |                |                              |                | 400          |                                        |
+| GET         |                 |                              |                |              |                                          |
+| GET         |               |                              |                |              |                                         |
+
+
+  
+## Links
+
+### Wireframes
+https://whimsical.com/ninjacoder-mid-fi-MGRHtqYcRMwPLwvSHcSEkf
+
+### Notion/Kanban
+
+[Link to your Kanban](https://www.notion.so/ce36f7e972164ebabeacbdc7fdabb09c?v=313677cb7ca14d12bd744a1de5db3c78)
+
+### Git
+
+[Client repository Link](https://github.com/Joanneseiler/NinjaCoder-client)
+[Server repository Link](https://github.com/Joanneseiler/ninjacoder-server)
+
+[Deploy Link](http://heroku.com)
+
+### Slides
+
+The url to your presentation slides
+
+[Slides Link](http://slides.com)
