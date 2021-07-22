@@ -145,6 +145,7 @@ experience: {type: String, enum: [beginner, advanced, expert]}
 
   - Stripe package
   - Material UI
+  - Socket(backlog)
 
 # Server
 
