@@ -1,14 +1,15 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import * as PATHS from "./utils/paths";
+import SignInForm from "./components/SignInForm";
+import SignUpForm from "./components/SignUpForm";
+
+
 
 function App() {
   return (
-    <div className="App">
-      <Switch>
-        <Route exact path={PATHS.HOMEPAGE} component={HomePage} />
-      </Switch>
+    <div>
+     <SignInForm/>
+     <SignUpForm/>
     </div>
   );
 }
