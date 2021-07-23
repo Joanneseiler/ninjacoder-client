@@ -150,7 +150,7 @@ export default function SignUpForm() {
             </Grid>
             <Grid item>
               <span style={{fontSize: "0.875rem"}}>Already have an account?</span>
-              <Link style={{marginLeft: 8, textDecoration: "none"}} href="#" variant="body2">
+              <Link style={{marginLeft: 8, textDecoration: "none"}} href="/signin" variant="body2">
                 Sign In
               </Link>
             </Grid>

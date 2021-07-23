@@ -14,6 +14,7 @@ import Box from '@material-ui/core/Box';
 //import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+//import {Link} from "react-router-dom"
 
 
 function Copyright(props) {
@@ -29,16 +30,12 @@ function Copyright(props) {
   );
 }
 
-export default function SignInForm() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+function SignInForm(props) {
+  const [role, setRole] = React.useState("tutor")
+
+  const handleSelect = (event) => {
+    setRole(event.target.value)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -57,19 +54,21 @@ export default function SignInForm() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <InputLabel id="role">Who are you?</InputLabel>
-            <Select
+        <Box component="form" onSubmit={props.onSignIn} noValidate sx={{ mt: 1 }}>
+          <InputLabel id="role">Who are you?</InputLabel>
+          <Select
             labelid= "role"
             margin="normal"
             required
             fullWidth
             id="role"
+            value={role}
+            onChange={handleSelect}
             // label="Who are you?"
             name="role">
-           <MenuItem value="tutor">Tutor</MenuItem>
-           <MenuItem value="parent">Parent</MenuItem>
-            </Select>
+            <MenuItem value="tutor">Tutor</MenuItem>
+            <MenuItem value="parent">Parent</MenuItem>
+          </Select>
           <TextField
             margin="normal"
             required
@@ -105,7 +104,7 @@ export default function SignInForm() {
             </Grid>
             <Grid item>
               <span style={{fontSize: "0.875rem"}}>Don't have an account?</span>
-              <Link style={{marginLeft: 8, textDecoration: "none"}} href="#" variant="body2">
+              <Link style={{marginLeft: 8, textDecoration: "none"}} href="/signin" variant="body2">
                 Sign Up
               </Link>
             </Grid>
@@ -116,3 +115,5 @@ export default function SignInForm() {
     </Container>
   );
 }
+
+export default SignInForm;
