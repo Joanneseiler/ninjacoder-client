@@ -14,6 +14,8 @@ import LandingPage from "./components/LandingPage";
 import AddCourse from "./components/AddCourse";
 import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
+import Payment from "./components/Payment";
+import SearchBar from "./components/SearchBar";
 
 //Coding :
 
@@ -22,12 +24,13 @@ function App() {
   const [user, setUser] = React.useState(null);
   const isFirstRender = useRef(true);
   const [courses, setCourses] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
 
   useEffect(() => {
     const getCourses = async () => {
       try {
         let response = await axios.get("http://localhost:5005/api/courses", {
-          withCredentials: true,
+          withCredentials: true, // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
         });
         setCourses(response.data);
       } catch (err) {
@@ -45,6 +48,7 @@ function App() {
     history.push("/");
   }, [user, history]);
 
+  // Sign in
   const handleSignIn = async (event) => {
     event.preventDefault();
     const { role, email, password } = event.target;
@@ -57,7 +61,7 @@ function App() {
       const response = await axios.post(
         `http://localhost:5005/api/signin`,
         submittedUser,
-        { withCredentials: true }
+        { withCredentials: true } // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
       );
       setUser(response.data);
     } catch (err) {
@@ -65,6 +69,7 @@ function App() {
     }
   };
 
+  // Add Courses
   const handleAddCourse = async (event) => {
     event.preventDefault();
     //to deal with images
@@ -96,6 +101,16 @@ function App() {
     } catch (err) {
       console.log("Course creation failed", err);
     }
+  };
+
+  // Searchbar
+  const handleSearch = (event) => {
+    let searchedCourse = event.target.value;
+
+    let filteredCourses = courses.filter((course) => {
+      return course.name.toLoweCase().includes(searchedCourse.toLoweCase());
+    });
+    setFilteredCourses(filteredCourses);
   };
 
   return (
@@ -141,7 +156,15 @@ function App() {
             return <CourseDetail {...routeProps} />;
           }}
         />
+        <Route
+          exact
+          path={"/courses/:courseId/payment"}
+          render={(routeProps) => {
+            return <Payment {...routeProps} />;
+          }}
+        />
         <Route component={NotFound} />
+        <Route onSearch={handleSearch} />
       </Switch>
     </div>
   );
