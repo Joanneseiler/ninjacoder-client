@@ -1,31 +1,35 @@
-import * as React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
+import * as React from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 //import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 //import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-       NinjaCoder
-      </Link>{' '}
+        NinjaCoder
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -36,8 +40,8 @@ export default function SignUpForm() {
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: data.get("email"),
+      password: data.get("password"),
     });
   };
 
@@ -47,19 +51,19 @@ export default function SignUpForm() {
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           {/* <LockOutlinedIcon /> */}
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <TextField
+          <TextField
             margin="normal"
             required
             fullWidth
@@ -100,22 +104,21 @@ export default function SignUpForm() {
             autoComplete="current-password"
           />
 
-        
           <InputLabel id="role">Who are you?</InputLabel>
-            <Select
-            labelid= "role"
+          <Select
+            labelid="role"
             margin="normal"
             required
             fullWidth
             id="role"
             // label="Who are you?"
-            name="role">
-           <MenuItem value="tutor">Tutor</MenuItem>
-           <MenuItem value="parent">Parent</MenuItem>
-            </Select>
-        
+            name="role"
+          >
+            <MenuItem value="tutor">Tutor</MenuItem>
+            <MenuItem value="parent">Parent</MenuItem>
+          </Select>
 
-            <TextField
+          <TextField
             margin="normal"
             required
             fullWidth
@@ -125,7 +128,7 @@ export default function SignUpForm() {
             // autoComplete="kidAge"
             autoFocus
           />
-           <TextField
+          <TextField
             margin="normal"
             required
             fullWidth
@@ -139,18 +142,34 @@ export default function SignUpForm() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button style={{color: "white"}} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button
+            style={{ color: "white" }}
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link style={{color: '#000000', textDecoration: "none"}} href="#" variant="body2">
+              <Link
+                style={{ color: "#000000", textDecoration: "none" }}
+                href="#"
+                variant="body2"
+              >
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <span style={{fontSize: "0.875rem"}}>Already have an account?</span>
-              <Link style={{marginLeft: 8, textDecoration: "none"}} href="/signin" variant="body2">
+              <span style={{ fontSize: "0.875rem" }}>
+                Already have an account?
+              </span>
+              <Link
+                style={{ marginLeft: 8, textDecoration: "none" }}
+                href="/signin"
+                variant="body2"
+              >
                 Sign In
               </Link>
             </Grid>
