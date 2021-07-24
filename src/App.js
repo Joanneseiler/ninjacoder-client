@@ -13,6 +13,7 @@ import SignUpForm from "./components/SignUpForm";
 import LandingPage from "./components/LandingPage";
 import AddCourse from "./components/AddCourse";
 import Courses from "./components/Courses";
+import CourseDetail from "./components/CourseDetail";
 
 //Coding :
 
@@ -127,9 +128,17 @@ function App() {
           }}
         />
         <Route
+          exact
           path={"/courses"}
           render={() => {
             return <Courses courses={courses} />;
+          }}
+        />
+        <Route
+          exact
+          path={"/courses/:courseId"}
+          render={(routeProps) => {
+            return <CourseDetail {...routeProps} />;
           }}
         />
         <Route component={NotFound} />
