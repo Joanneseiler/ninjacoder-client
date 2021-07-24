@@ -3,6 +3,7 @@ import { TextField } from "@material-ui/core";
 
 function SearchBar(props) {
   const { onSearch } = props;
+
   return (
     <div>
       <TextField

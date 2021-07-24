@@ -15,7 +15,6 @@ import AddCourse from "./components/AddCourse";
 import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Payment from "./components/Payment";
-import SearchBar from "./components/SearchBar";
 
 //Coding :
 
@@ -107,8 +106,10 @@ function App() {
   const handleSearch = (event) => {
     let searchedCourse = event.target.value;
 
-    let filteredCourses = courses.filter((course) => {
-      return course.name.toLoweCase().includes(searchedCourse.toLoweCase());
+    let filteredCourses = courses.filter((singleCourse) => {
+      return singleCourse.name
+        .toLoweCase()
+        .includes(searchedCourse.toLoweCase());
     });
     setFilteredCourses(filteredCourses);
   };
@@ -117,6 +118,7 @@ function App() {
     <div>
       <Switch>
         {/* <NavBar /> */}
+
         <Route
           exact
           path={"/"}
@@ -146,7 +148,9 @@ function App() {
           exact
           path={"/courses"}
           render={() => {
-            return <Courses courses={courses} />;
+            return (
+              <Courses onSearch={handleSearch} courses={filteredCourses} />
+            );
           }}
         />
         <Route
@@ -164,7 +168,6 @@ function App() {
           }}
         />
         <Route component={NotFound} />
-        <Route onSearch={handleSearch} />
       </Switch>
     </div>
   );
