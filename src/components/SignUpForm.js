@@ -30,16 +30,39 @@ function Copyright(props) {
   );
 }
 
-export default function SignUpForm() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+function ParentComponents(props) {
+  if (!props.isVisible) {
+    return <></>
+  }
+
+  return <>
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        id="kidAge"
+        label="Age of your child"
+        name="kidAge"
+        autoFocus
+      />
+        <TextField
+        margin="normal"
+        required
+        fullWidth
+        id="secretWord"
+        label="Please choose a secret word"
+        name="secretWord"
+        autoFocus
+      />
+    </>
+}
+
+  function SignUpForm(props) {
+    const [role, setRole] = React.useState("tutor")
+  
+    const handleSelect = (event) => {
+      setRole(event.target.value)
+    }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -58,7 +81,7 @@ export default function SignUpForm() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={props.onSignUp} noValidate sx={{ mt: 1 }}>
         <TextField
             margin="normal"
             required
@@ -93,14 +116,12 @@ export default function SignUpForm() {
             margin="normal"
             required
             fullWidth
-            name="repeatPassword"
+            name="repeatedPassword"
             label="Repeat password"
             type="password"
-            id="repeatPassword"
+            id="repeatedPassword"
             autoComplete="current-password"
           />
-
-        
           <InputLabel id="role">Who are you?</InputLabel>
             <Select
             labelid= "role"
@@ -108,33 +129,15 @@ export default function SignUpForm() {
             required
             fullWidth
             id="role"
+            value={role}
+            onChange={handleSelect}
             // label="Who are you?"
             name="role">
-           <MenuItem value="tutor">Tutor</MenuItem>
-           <MenuItem value="parent">Parent</MenuItem>
+            <MenuItem value="tutor">Tutor</MenuItem>
+            <MenuItem value="parent">Parent</MenuItem>
             </Select>
-        
-
-            <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="kidAge"
-            label="Age of your child"
-            name="kidAge"
-            // autoComplete="kidAge"
-            autoFocus
-          />
-           <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="secretWord"
-            label="Please choose a secret word"
-            name="secretWord"
-            // autoComplete="kidAge"
-            autoFocus
-          />
+            <ParentComponents isVisible={role === "parent"}></ParentComponents>
+          <div style={{display: "flex", justifyContent: "center", color: "red"}}>{props.error}</div>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -161,3 +164,5 @@ export default function SignUpForm() {
     </Container>
   );
 }
+
+export default SignUpForm;

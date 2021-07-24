@@ -89,6 +89,7 @@ function SignInForm(props) {
             id="password"
             autoComplete="current-password"
           />
+          <div style={{display: "flex", justifyContent: "center", color: "red"}}>{props.error}</div>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
