@@ -12,7 +12,7 @@ import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
 import LandingPage from "./components/LandingPage";
 import AddCourse from "./components/AddCourse";
-import Course from "./components/Course";
+import Courses from "./components/Courses";
 
 //Coding :
 
@@ -21,6 +21,20 @@ function App() {
   const [user, setUser] = React.useState(null);
   const isFirstRender = useRef(true);
   const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const getCourses = async () => {
+      try {
+        let response = await axios.get("http://localhost:5005/api/courses", {
+          withCredentials: true,
+        });
+        setCourses(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getCourses();
+  }, []);
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -115,7 +129,7 @@ function App() {
         <Route
           path={"/courses"}
           render={() => {
-            return <Course courses={courses} />;
+            return <Courses courses={courses} />;
           }}
         />
         <Route component={NotFound} />
