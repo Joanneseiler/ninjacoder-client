@@ -3,7 +3,7 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
-// import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 import axios from 'axios';
 import LandingPage from "./components/LandingPage";
 
@@ -26,21 +26,26 @@ function App() {
   const handleSignUp = async (event) => {
     event.preventDefault();
     const {username, role, email, password, repeatedPassword, kidAge, secretWord} = event.target
-    const newUser = {
+    let newUser = {
       username: username.value,
       role: role.value, 
       email: email.value, 
       password: password.value, 
-      repeatedPassword: repeatedPassword.value,
-      kidAge: kidAge.value,
-      secretWord: secretWord.value 
+      repeatedPassword: repeatedPassword.value
     }
+
+    if (role.value === 'parent') {
+      newUser.kidAge = kidAge.value
+      newUser.secretWord = secretWord.value
+    }
+
+    console.log(newUser)
 
     try {
       const response = await axios.post(`http://localhost:5005/api/signup`, newUser, {withCredentials: true})
       setUser(response.data)
     } catch(err) {
-      setSignUpError(err.response.data.error)
+      setSignUpError(err.response.data.errorMessage)
     }
   };
 
@@ -52,24 +57,24 @@ function App() {
       const response = await axios.post(`http://localhost:5005/api/signin`, submittedUser, {withCredentials: true})
       setUser(response.data)
     } catch(err) {
-      setSignInError(err.response.data.error)
+      setSignInError(err.response.data.errorMessage)
     }
   };
 
   return (
     <div>
+      <NavBar user={user}/>
       <Switch>
-      {/* <NavBar /> */}
-      <Route exact path={"/"} render={() => {
-      return <LandingPage/> 
-      }} />
-      <Route path="/signin" render={(routeProps) => {
-      return <SignInForm error={signInError} onSignIn={handleSignIn} {...routeProps}  />
-      }}/>
-      <Route path="/signup" render={(routeProps) => {
-        return <SignUpForm error={signUpError} onSignUp={handleSignUp} {...routeProps}  />
-      }}/>
-      <Route component={NotFound} />
+        <Route exact path={"/"} render={() => {
+          return <LandingPage/> 
+        }} />
+        <Route path="/signin" render={(routeProps) => {
+          return <SignInForm error={signInError} onSignIn={handleSignIn} {...routeProps}  />
+        }}/>
+        <Route path="/signup" render={(routeProps) => {
+          return <SignUpForm error={signUpError} onSignUp={handleSignUp} {...routeProps}  />
+        }}/>
+        <Route component={NotFound} />
       </Switch>
     </div>
   );

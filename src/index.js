@@ -9,11 +9,12 @@ import {deepPurple} from '@material-ui/core/colors';
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#80CFA9'
+            main: '#06b36b'
         },
         secondary: deepPurple
     }
 })
+
 
 ReactDOM.render(
   <React.StrictMode>

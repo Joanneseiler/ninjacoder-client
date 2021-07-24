@@ -1,34 +1,47 @@
-import * as React from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-//import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-//import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import {Link} from "react-router-dom";
+import FormError from './FormError';
 
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-       NinjaCoder
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(4),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  formControl: {
+    minWidth: 120,
+    width: '100%',
+    marginBottom: theme.spacing(1)
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 function ParentComponents(props) {
   if (!props.isVisible) {
@@ -38,72 +51,81 @@ function ParentComponents(props) {
   return <>
       <TextField
         margin="normal"
+        variant="outlined"
         required
         fullWidth
         id="kidAge"
         label="Age of your child"
         name="kidAge"
-        autoFocus
       />
         <TextField
         margin="normal"
+        variant="outlined"
         required
         fullWidth
         id="secretWord"
         label="Please choose a secret word"
         name="secretWord"
-        autoFocus
       />
     </>
 }
 
-  function SignUpForm(props) {
-    const [role, setRole] = React.useState("tutor")
-  
-    const handleSelect = (event) => {
-      setRole(event.target.value)
-    }
+function SignUpForm(props) {
+  const [role, setRole] = React.useState(null)
+  const classes = useStyles();
+  const handleSelect = (event) => {
+    setRole(event.target.value)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          {/* <LockOutlinedIcon /> */}
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" onSubmit={props.onSignUp} noValidate sx={{ mt: 1 }}>
-        <TextField
+        <form className={classes.form} onSubmit={props.onSignUp} noValidate>
+          <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="role-label">What is your role?</InputLabel>
+            <Select
+              labelid= "role-label"
+              margin="normal"
+              required
+              id="role"
+              value={role}
+              onChange={handleSelect}
+              name="role"
+            >
+            <MenuItem value="tutor">Tutor</MenuItem>
+            <MenuItem value="parent">Parent</MenuItem>
+          </Select>
+          </FormControl>
+          <TextField
             margin="normal"
+            variant="outlined"
             required
             fullWidth
             id="username"
             label="Username"
             name="username"
             autoComplete="username"
-            autoFocus
           />
           <TextField
             margin="normal"
+            variant="outlined"
             required
             fullWidth
             id="email"
             label="Email address"
             name="email"
             autoComplete="email"
-            autoFocus
           />
           <TextField
             margin="normal"
+            variant="outlined"
             required
             fullWidth
             name="password"
@@ -114,6 +136,7 @@ function ParentComponents(props) {
           />
           <TextField
             margin="normal"
+            variant="outlined"
             required
             fullWidth
             name="repeatedPassword"
@@ -122,45 +145,29 @@ function ParentComponents(props) {
             id="repeatedPassword"
             autoComplete="current-password"
           />
-          <InputLabel id="role">Who are you?</InputLabel>
-            <Select
-            labelid= "role"
-            margin="normal"
-            required
+          <ParentComponents isVisible={role === "parent"}></ParentComponents>
+          <FormError text={props.error}></FormError>
+          <Button
+            style={{color: "white"}}
+            type="submit"
             fullWidth
-            id="role"
-            value={role}
-            onChange={handleSelect}
-            // label="Who are you?"
-            name="role">
-            <MenuItem value="tutor">Tutor</MenuItem>
-            <MenuItem value="parent">Parent</MenuItem>
-            </Select>
-            <ParentComponents isVisible={role === "parent"}></ParentComponents>
-          <div style={{display: "flex", justifyContent: "center", color: "red"}}>{props.error}</div>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button style={{color: "white"}} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Sign In
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign Up
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link style={{color: '#000000', textDecoration: "none"}} href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
+            <Grid item xs></Grid>
             <Grid item>
-              <span style={{fontSize: "0.875rem"}}>Already have an account?</span>
-              <Link style={{marginLeft: 8, textDecoration: "none"}} href="/signin" variant="body2">
-                Sign In
-              </Link>
+            <span style={{fontSize: "0.875rem"}}>Don't have an account?</span>
+            <Link style={{marginLeft: 8, textDecoration: "none"}} to="/signin" variant="body2">
+                 Sign In
+            </Link>
             </Grid>
           </Grid>
-        </Box>
-      </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
+        </form>
+      </div>
     </Container>
   );
 }
