@@ -10,6 +10,7 @@ import AddCourse from "./components/AddCourse";
 import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Payment from "./components/Payment";
+import EditCourse from "./components/EditCourse";
 
 function App() {
   let history = useHistory();
@@ -17,9 +18,9 @@ function App() {
   const isFirstRender = useRef(true);
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const [signInError, setSignInError] = useState(null)
-  const [signUpError, setSignUpError] = useState(null)
-  const [fetchingUser, setfetchingUser] = useState(true)
+  const [signInError, setSignInError] = useState(null);
+  const [signUpError, setSignUpError] = useState(null);
+  const [fetchingUser, setfetchingUser] = useState(true);
 
   //COURSES
   useEffect(() => {
@@ -31,12 +32,12 @@ function App() {
         setCourses(response.data);
         setFilteredCourses(response.data);
         setfetchingUser(false);
-        
 
-        let userResponse = await axios.get(`http://localhost:5005/api/user`, {withCredentials: true})
-        setUser(userResponse.data)
+        let userResponse = await axios.get(`http://localhost:5005/api/user`, {
+          withCredentials: true,
+        });
+        setUser(userResponse.data);
         setfetchingUser(false);
-       
       } catch (err) {
         console.log(err);
       }
@@ -109,20 +110,22 @@ function App() {
     }
   };
 
-
   const handleLogOut = async () => {
     try {
-      await axios.post(`http://localhost:5005/api/logout`, {}, {withCredentials: true})
-      setUser(null)
+      await axios.post(
+        `http://localhost:5005/api/logout`,
+        {},
+        { withCredentials: true }
+      );
+      setUser(null);
+    } catch {
+      console.log("Logout failed");
     }
-    catch {
-      console.log("Logout failed")
-    }
-  }
+  };
 
   // Where is the best place to put this? Was in render in classes
-  if (fetchingUser) { 
-    return <p>Loading...</p>
+  if (fetchingUser) {
+    return <p>Loading...</p>;
   }
 
   // Add Courses
@@ -159,6 +162,30 @@ function App() {
     }
   };
 
+  // Edit Course
+  const handleEditCourse = async (event, course) => {
+    //     event.preventDefault();
+    //     await axios.patch(
+    //       `http://localhost:5005/api/tutor/courses/${course._id}`,
+    //       course,
+    //       { withCredentials: true }
+    //     );
+    //     try {
+    //       let updatedCourse = courses.map((singleCourse) => {
+    //         if (singleCourse._id === course._id) {
+    //           (singleCourse.name = course.name),
+    //             (singleCourse.description = course.description),
+    //             (singleCourse.video = course.video),
+    //             (singleCourse.price = course.price);
+    //         }
+    //         return singleCourse;
+    //       });
+    //       setCourses(updatedCourse);
+    //     } catch (err) {
+    //       updateError(err.response.data.error); //error to be common
+    //     }
+  };
+
   // Searchbar
   const handleSearch = (event) => {
     let searchedCourse = event.target.value;
@@ -173,7 +200,7 @@ function App() {
 
   return (
     <div>
-    <NavBar user={user} onLogOut={handleLogOut}/>
+      <NavBar user={user} onLogOut={handleLogOut} />
       <Switch>
         <Route
           exact
@@ -236,6 +263,15 @@ function App() {
           path={"/courses/:courseId/payment"}
           render={(routeProps) => {
             return <Payment {...routeProps} />;
+          }}
+        />
+        <Route
+          exact
+          path={"/courses/:courseId/edit"}
+          render={(routeProps) => {
+            return (
+              <EditCourse onEditCourse={handleEditCourse} {...routeProps} />
+            );
           }}
         />
         <Route component={NotFound} />
