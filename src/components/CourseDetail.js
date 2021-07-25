@@ -19,7 +19,7 @@ function CourseDetail(props) {
       }
     };
     getData();
-  }, [courseDetail]); // if courseDetail is not modified, then do not render the side effect of useEffect, again otherwise infinite loop //https://medium.com/@andrewmyint/infinite-loop-inside-useeffect-react-hooks-6748de62871
+  }, []); // if courseDetail is not modified, then do not render the side effect of useEffect, again otherwise infinite loop //https://medium.com/@andrewmyint/infinite-loop-inside-useeffect-react-hooks-6748de62871
 
   if (!courseDetail) {
     return <p>Loading...Bruh</p>;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function EditCourse(props) {
-  const { courseDetail, setCourseDetail } = useState(null);
+  const [courseDetail, setCourseDetail] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -85,9 +86,13 @@ function EditCourse(props) {
           type="number"
           placeholder="Enter price"
         />
-
-        <button type="submit">Submit changes</button>
+        <Link to={`/profile`}>
+          <button type="submit">Submit changes</button>
+        </Link>
       </form>
+      <Link to={`/profile`}>
+        <button onClick={() => props.onDelete(courseDetail._id)}>Delete</button>
+      </Link>
     </div>
   );
 }

@@ -8,19 +8,22 @@ function Payment(props) {
     const doPayment = async () => {
       try {
         let courseId = props.match.params.courseId;
-        let response = await axios.get(`/courses/${courseId}/payment`, {
-          withCredentials: true,
-        });
+        let response = await axios.get(
+          `http://localhost:5005/api/courses/${courseId}/payment`,
+          {
+            withCredentials: true,
+          }
+        );
         setPayment(response.data);
       } catch (err) {
         console.log(err);
       }
     };
     doPayment();
-  }, [payment]);
+  }, []);
 
   if (!payment) {
-    return <p>Loading...Bruh</p>;
+    return <p>Loading...</p>;
   }
   return <div>{payment.message}</div>;
 }
