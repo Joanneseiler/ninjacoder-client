@@ -17,9 +17,9 @@ function App() {
   const isFirstRender = useRef(true);
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const [signInError, setSignInError] = useState(null)
-  const [signUpError, setSignUpError] = useState(null)
-  const [fetchingUser, setfetchingUser] = useState(true)
+  const [signInError, setSignInError] = useState(null);
+  const [signUpError, setSignUpError] = useState(null);
+  const [fetchingUser, setfetchingUser] = useState(true);
 
   //COURSES
   useEffect(() => {
@@ -28,20 +28,15 @@ function App() {
         let response = await axios.get("http://localhost:5005/api/courses", {
           withCredentials: true, // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
         });
-<<<<<<< HEAD
-        setCourses(response.data); // Fetch courses
-        setFilteredCourses(response.data); // Initialize fileredCourses otherwise courses are not displayed when search bar is empty.
-=======
         setCourses(response.data);
         setFilteredCourses(response.data);
         setfetchingUser(false);
-        
 
-        let userResponse = await axios.get(`http://localhost:5005/api/user`, {withCredentials: true})
-        setUser(userResponse.data)
+        let userResponse = await axios.get(`http://localhost:5005/api/user`, {
+          withCredentials: true,
+        });
+        setUser(userResponse.data);
         setfetchingUser(false);
-       
->>>>>>> 38f98014bf2b0f6e7cccff0b8b7aa8e583663906
       } catch (err) {
         console.log(err);
       }
@@ -114,20 +109,22 @@ function App() {
     }
   };
 
-
   const handleLogOut = async () => {
     try {
-      await axios.post(`http://localhost:5005/api/logout`, {}, {withCredentials: true})
-      setUser(null)
+      await axios.post(
+        `http://localhost:5005/api/logout`,
+        {},
+        { withCredentials: true }
+      );
+      setUser(null);
+    } catch {
+      console.log("Logout failed");
     }
-    catch {
-      console.log("Logout failed")
-    }
-  }
+  };
 
   // Where is the best place to put this? Was in render in classes
-  if (fetchingUser) { 
-    return <p>Loading...</p>
+  if (fetchingUser) {
+    return <p>Loading...</p>;
   }
 
   // Add Courses
@@ -178,7 +175,7 @@ function App() {
 
   return (
     <div>
-    <NavBar user={user} onLogOut={handleLogOut}/>
+      <NavBar user={user} onLogOut={handleLogOut} />
       <Switch>
         <Route
           exact
