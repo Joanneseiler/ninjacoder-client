@@ -10,6 +10,7 @@ import AddCourse from "./components/AddCourse";
 import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Payment from "./components/Payment";
+import EditCourse from "./components/EditCourse";
 
 function App() {
   let history = useHistory();
@@ -161,6 +162,9 @@ function App() {
     }
   };
 
+  // Edit Course
+  const handleEditCourse = async (event) => {};
+
   // Searchbar
   const handleSearch = (event) => {
     let searchedCourse = event.target.value;
@@ -238,6 +242,15 @@ function App() {
           path={"/courses/:courseId/payment"}
           render={(routeProps) => {
             return <Payment {...routeProps} />;
+          }}
+        />
+        <Route
+          exact
+          path={"/courses/:courseId/edit"}
+          render={(routeProps) => {
+            return (
+              <EditCourse onEditCourse={handleEditCourse} {...routeProps} />
+            );
           }}
         />
         <Route component={NotFound} />
