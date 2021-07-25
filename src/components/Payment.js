@@ -17,7 +17,7 @@ function Payment(props) {
       }
     };
     doPayment();
-  }, [payment]);
+  }, []);
 
   if (!payment) {
     return <p>Loading...Bruh</p>;

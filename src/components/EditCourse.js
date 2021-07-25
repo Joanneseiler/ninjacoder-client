@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function EditCourse(props) {
-  const { courseDetail, setCourseDetail } = useState(null);
+  const [courseDetail, setCourseDetail] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
