@@ -4,18 +4,6 @@ import axios from "axios";
 function EditCourse(props) {
   const { courseDetail, setCourseDetail } = useState(null);
 
-  //   useEffect(async () => {
-  //     try {
-  //       let courseId = props.match.params.courseId;
-  //       let response = await axios.get(
-  //         `http://localhost:5005/api/courses/${courseId}`
-  //       );
-  //       setCourseDetail(response.data);
-  //     } catch (err) {
-  //       console.log("Edit course fetch failed", err);
-  //     }
-  //   }, []);
-
   useEffect(() => {
     const getData = async () => {
       try {
