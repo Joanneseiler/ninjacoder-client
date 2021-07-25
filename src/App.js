@@ -13,21 +13,35 @@ import Payment from "./components/Payment";
 
 function App() {
   let history = useHistory();
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = useState(null);
   const isFirstRender = useRef(true);
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const [signInError, setSignInError] = React.useState(null);
-  const [signUpError, setSignUpError] = React.useState(null);
+  const [signInError, setSignInError] = useState(null)
+  const [signUpError, setSignUpError] = useState(null)
+  const [fetchingUser, setfetchingUser] = useState(true)
 
+  //COURSES
   useEffect(() => {
     const getCourses = async () => {
       try {
         let response = await axios.get("http://localhost:5005/api/courses", {
           withCredentials: true, // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
         });
+<<<<<<< HEAD
         setCourses(response.data); // Fetch courses
         setFilteredCourses(response.data); // Initialize fileredCourses otherwise courses are not displayed when search bar is empty.
+=======
+        setCourses(response.data);
+        setFilteredCourses(response.data);
+        setfetchingUser(false);
+        
+
+        let userResponse = await axios.get(`http://localhost:5005/api/user`, {withCredentials: true})
+        setUser(userResponse.data)
+        setfetchingUser(false);
+       
+>>>>>>> 38f98014bf2b0f6e7cccff0b8b7aa8e583663906
       } catch (err) {
         console.log(err);
       }
@@ -35,13 +49,14 @@ function App() {
     getCourses();
   }, []);
 
-  useEffect(() => {
+  //AUTHENTICATION
+  /*useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
     history.push("/");
-  }, [user, history]);
+  }, [user, history]);*/
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -66,8 +81,6 @@ function App() {
       newUser.kidAge = kidAge.value;
       newUser.secretWord = secretWord.value;
     }
-
-    console.log(newUser);
 
     try {
       const response = await axios.post(
@@ -100,6 +113,22 @@ function App() {
       setSignInError(err.response.data.errorMessage);
     }
   };
+
+
+  const handleLogOut = async () => {
+    try {
+      await axios.post(`http://localhost:5005/api/logout`, {}, {withCredentials: true})
+      setUser(null)
+    }
+    catch {
+      console.log("Logout failed")
+    }
+  }
+
+  // Where is the best place to put this? Was in render in classes
+  if (fetchingUser) { 
+    return <p>Loading...</p>
+  }
 
   // Add Courses
   const handleAddCourse = async (event) => {
@@ -149,7 +178,7 @@ function App() {
 
   return (
     <div>
-      <NavBar user={user} />
+    <NavBar user={user} onLogOut={handleLogOut}/>
       <Switch>
         <Route
           exact

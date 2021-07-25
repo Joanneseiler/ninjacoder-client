@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuAppBar(props) {
+function NavBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -80,7 +80,10 @@ export default function MenuAppBar(props) {
             </>
           )}
           {props.user && (
-            <div>
+              <div>
+            <Button onClick={props.onLogOut} color="inherit">
+                Logout
+                </Button>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -105,13 +108,10 @@ export default function MenuAppBar(props) {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
             </div>
           )}
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
           </IconButton>
             <Menu
             id="menu-appbar"
@@ -128,11 +128,15 @@ export default function MenuAppBar(props) {
             open={open}
             onClose={handleClose}
             >
+
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
+           
             </Menu>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+
+export default NavBar;
