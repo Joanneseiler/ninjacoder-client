@@ -187,6 +187,17 @@ function App() {
     }
   };
 
+  // Delete
+  const handleDeleteCourse = async (courseId) => {
+    await axios.delete(`http://localhost:5005/api/tutor/courses/${courseId}`, {
+      withCredentials: true,
+    });
+    let filteredCourses = courses.filter((singleCourse) => {
+      return singleCourse._id !== courseId;
+    });
+    setCourses(filteredCourses);
+  };
+
   // Searchbar
   const handleSearch = (event) => {
     let searchedCourse = event.target.value;
@@ -271,7 +282,11 @@ function App() {
           path={"/courses/:courseId/edit"}
           render={(routeProps) => {
             return (
-              <EditCourse onEditCourse={handleEditCourse} {...routeProps} />
+              <EditCourse
+                onDelete={handleDeleteCourse}
+                onEditCourse={handleEditCourse}
+                {...routeProps}
+              />
             );
           }}
         />

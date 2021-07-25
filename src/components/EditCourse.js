@@ -88,6 +88,7 @@ function EditCourse(props) {
 
         <button type="submit">Submit changes</button>
       </form>
+      <button onClick={() => props.onDelete(courseDetail._id)}>Delete</button>
     </div>
   );
 }
