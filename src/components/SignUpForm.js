@@ -1,10 +1,8 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -14,6 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import {Link} from "react-router-dom";
 import FormError from './FormError';
+import SignInLogo from "../Login-logo.png"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -81,9 +80,7 @@ function SignUpForm(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+        <img style={{width: '40px', margin: "15px"}} src={SignInLogo} alt="Sign in Logo"/> 
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>

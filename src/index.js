@@ -4,14 +4,14 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import {createTheme, ThemeProvider } from '@material-ui/core';
-import {deepPurple} from '@material-ui/core/colors';
+import {cyan} from '@material-ui/core/colors';
 
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#06b36b'
+            main: '#8FC0A9'
         },
-        secondary: deepPurple
+        secondary: cyan
     }
 })
 
