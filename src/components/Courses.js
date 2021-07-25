@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
 function Courses(props) {
-  const { courses, handleSearch } = props;
+  const { courses, onHandleSearch } = props;
+  console.log(courses);
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={onHandleSearch} />
       <div>
         {courses.map((course, i) => {
           return (
