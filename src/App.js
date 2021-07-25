@@ -26,8 +26,8 @@ function App() {
         let response = await axios.get("http://localhost:5005/api/courses", {
           withCredentials: true, // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
         });
-        setCourses(response.data);
-        setFilteredCourses(response.data);
+        setCourses(response.data); // Fetch courses
+        setFilteredCourses(response.data); // Initialize fileredCourses otherwise courses are not displayed when search bar is empty.
       } catch (err) {
         console.log(err);
       }
