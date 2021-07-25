@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import NotFound from "./components/NotFound";
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
+import Profile from "./components/profile/Profile";
 import NavBar from "./components/NavBar";
 import LandingPage from "./components/LandingPage";
 import AddCourse from "./components/AddCourse";
@@ -15,14 +16,12 @@ import EditCourse from "./components/EditCourse";
 function App() {
   let history = useHistory();
   const [user, setUser] = useState(null);
-  const isFirstRender = useRef(true);
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [signInError, setSignInError] = useState(null);
   const [signUpError, setSignUpError] = useState(null);
   const [fetchingUser, setfetchingUser] = useState(true);
 
-  //COURSES
   useEffect(() => {
     const getCourses = async () => {
       try {
@@ -45,14 +44,20 @@ function App() {
     getCourses();
   }, []);
 
-  //AUTHENTICATION
-  /*useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
+  useEffect(() => {
+    if (user === null) {
+      history.push("/");
       return;
     }
-    history.push("/");
-  }, [user, history]);*/
+
+    history.push("/profile");
+  }, [user, history]);
+
+
+  // Where is the best place to put this? Was in render in classes
+  if (fetchingUser) {
+    return <p>Loading...</p>;
+  }
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -104,6 +109,7 @@ function App() {
         submittedUser,
         { withCredentials: true }
       );
+      response.data.role = submittedUser.role
       setUser(response.data);
     } catch (err) {
       setSignInError(err.response.data.errorMessage);
@@ -122,11 +128,6 @@ function App() {
       console.log("Logout failed");
     }
   };
-
-  // Where is the best place to put this? Was in render in classes
-  if (fetchingUser) {
-    return <p>Loading...</p>;
-  }
 
   // Add Courses
   const handleAddCourse = async (event) => {
@@ -228,6 +229,17 @@ function App() {
               <SignUpForm
                 error={signUpError}
                 onSignUp={handleSignUp}
+                {...routeProps}
+              />
+            );
+          }}
+        />
+        <Route
+          path="/profile"
+          render={(routeProps) => {
+            return (
+              <Profile
+                user={user}
                 {...routeProps}
               />
             );

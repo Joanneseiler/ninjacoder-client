@@ -35,11 +35,13 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
     width: '100%',
-    marginBottom: theme.spacing(1)
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  textField: {
+    marginTop: theme.spacing(2),
+  }
 }));
 
 function ParentComponents(props) {
@@ -49,28 +51,28 @@ function ParentComponents(props) {
 
   return <>
       <TextField
-        margin="normal"
         variant="outlined"
         required
         fullWidth
         id="kidAge"
         label="Age of your child"
         name="kidAge"
+        className={props.classes.textField}
       />
         <TextField
-        margin="normal"
         variant="outlined"
         required
         fullWidth
         id="secretWord"
         label="Please choose a secret word"
         name="secretWord"
+        className={props.classes.textField}
       />
     </>
 }
 
 function SignUpForm(props) {
-  const [role, setRole] = React.useState(null)
+  const [role, setRole] = React.useState("")
   const classes = useStyles();
   const handleSelect = (event) => {
     setRole(event.target.value)
@@ -89,7 +91,6 @@ function SignUpForm(props) {
           <InputLabel id="role-label">What is your role?</InputLabel>
             <Select
               labelid= "role-label"
-              margin="normal"
               required
               id="role"
               value={role}
@@ -101,7 +102,6 @@ function SignUpForm(props) {
           </Select>
           </FormControl>
           <TextField
-            margin="normal"
             variant="outlined"
             required
             fullWidth
@@ -109,9 +109,9 @@ function SignUpForm(props) {
             label="Username"
             name="username"
             autoComplete="username"
+            className={classes.textField}
           />
           <TextField
-            margin="normal"
             variant="outlined"
             required
             fullWidth
@@ -119,9 +119,9 @@ function SignUpForm(props) {
             label="Email address"
             name="email"
             autoComplete="email"
+            className={classes.textField}
           />
           <TextField
-            margin="normal"
             variant="outlined"
             required
             fullWidth
@@ -130,9 +130,9 @@ function SignUpForm(props) {
             type="password"
             id="password"
             autoComplete="current-password"
+            className={classes.textField}
           />
           <TextField
-            margin="normal"
             variant="outlined"
             required
             fullWidth
@@ -141,8 +141,9 @@ function SignUpForm(props) {
             type="password"
             id="repeatedPassword"
             autoComplete="current-password"
+            className={classes.textField}
           />
-          <ParentComponents isVisible={role === "parent"}></ParentComponents>
+          <ParentComponents classes={classes} isVisible={role === "parent"}></ParentComponents>
           <FormError text={props.error}></FormError>
           <Button
             style={{color: "white"}}

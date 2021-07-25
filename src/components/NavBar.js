@@ -97,13 +97,22 @@ function NavBar(props) {
       </MenuItem>
 
       {props.user ? (
-        <>
-          <MenuItem onClick={handleMobileMenuClose}>
-            <Link className={classes.btn} to="/profile">
+        [
+          <MenuItem key="mobileProfile" onClick={handleMobileMenuClose}>
+            <Link 
+            className={classes.btn} 
+            to="/profile">
               Profile
             </Link>
-          </MenuItem>
-          <MenuItem onClick={handleMobileMenuClose}>
+          </MenuItem>,
+          <MenuItem key="mobileAccount" onClick={handleMobileMenuClose}>
+            <Link 
+            className={classes.btn} 
+            to="/account">
+              Account
+            </Link>
+          </MenuItem>,
+          <MenuItem key="mobileLogout" onClick={handleMobileMenuClose}>
             <Link
               className={classes.btn}
               to="/"
@@ -112,20 +121,20 @@ function NavBar(props) {
               Logout
             </Link>
           </MenuItem>
-        </>
+        ]
       ) : (
-        <>
-          <MenuItem onClick={handleMobileMenuClose}>
+        [
+          <MenuItem key="mobileSignIn" onClick={handleMobileMenuClose}>
             <Link className={classes.btn} to="/signin">
               SignIn
             </Link>
-          </MenuItem>
-          <MenuItem onClick={handleMobileMenuClose}>
+          </MenuItem>,
+          <MenuItem key="mobileSignUp" onClick={handleMobileMenuClose}>
             <Link className={classes.btn} to="/signup">
               SignUp
             </Link>
           </MenuItem>
-        </>
+        ]
       )}
     </Menu>
   );
@@ -150,37 +159,39 @@ function NavBar(props) {
               </Link>
             </MenuItem>
             {props.user ? (
-              <>
-                <MenuItem onClick={handleMobileMenuClose}>
+                [
+                <MenuItem key="desktopProfile" onClick={handleMobileMenuClose}>
                   <Link className={classes.btn} to="/profile">
                     Profile
                   </Link>
-                </MenuItem>
-
-                <MenuItem onClick={handleMobileMenuClose}>
+                </MenuItem>,
+                <MenuItem key="desktopAccount" onClick={handleMobileMenuClose}>
+                  <Link className={classes.btn} to="/account">
+                    Account
+                  </Link>
+                </MenuItem>,
+                <MenuItem key="desktopHome" onClick={handleMobileMenuClose}>
                   <Link
                     className={classes.btn}
                     to="/"
-                    onClick={props.onLogOut}
-                    color="inherit"
-                  >
+                    onClick={props.onLogOut}>
                     Logout
                   </Link>
                 </MenuItem>
-              </>
+                ]
             ) : (
-              <>
-                <MenuItem>
+              [
+                <MenuItem key="desktopSignIn">
                   <Link className={classes.btn} to="/signin">
                     SignIn
                   </Link>
-                </MenuItem>
-                <MenuItem>
+                </MenuItem>,
+                <MenuItem key="desktopSignUp">
                   <Link className={classes.btn} to="/signup">
                     SignUp
                   </Link>
                 </MenuItem>
-              </>
+              ]
             )}
           </div>
           <div className={classes.sectionMobile}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -34,16 +34,21 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     minWidth: 120,
-    width: '100%',
-    marginBottom: theme.spacing(1)
+    width: '100%'
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  input: {
+    marginTop: theme.spacing(2),
+  },
+  textField: {
+    marginTop: theme.spacing(2),
+  }
 }));
 
 function SignInForm(props) {
-  const [role, setRole] = React.useState(null)
+  const [role, setRole] = React.useState("")
   const classes = useStyles();
   const handleSelect = (event) => {
     setRole(event.target.value)
@@ -62,7 +67,6 @@ function SignInForm(props) {
           <InputLabel id="role-label">What is your role?</InputLabel>
             <Select
               labelid= "role-label"
-              margin="normal"
               required
               id="role"
               value={role}
@@ -75,17 +79,16 @@ function SignInForm(props) {
           </FormControl>
           <TextField
             variant="outlined"
-            margin="normal"
             required
             fullWidth
             id="email"
             label="Email Address"
             name="email"
             autoComplete="email"
+            className={classes.textField}
           />
           <TextField
             variant="outlined"
-            margin="normal"
             required
             fullWidth
             name="password"
@@ -93,6 +96,7 @@ function SignInForm(props) {
             type="password"
             id="password"
             autoComplete="current-password"
+            className={classes.textField}
           />
           <FormError text={props.error}></FormError>
           <Button
