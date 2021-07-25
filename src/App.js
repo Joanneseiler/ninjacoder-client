@@ -11,7 +11,6 @@ import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Payment from "./components/Payment";
 
-
 function App() {
   let history = useHistory();
   const [user, setUser] = useState(null);
@@ -30,11 +29,14 @@ function App() {
           withCredentials: true, // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
         });
         setCourses(response.data);
+        setFilteredCourses(response.data);
         setfetchingUser(false);
+        
 
         let userResponse = await axios.get(`http://localhost:5005/api/user`, {withCredentials: true})
         setUser(userResponse.data)
         setfetchingUser(false);
+       
       } catch (err) {
         console.log(err);
       }
@@ -53,25 +55,37 @@ function App() {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const {username, role, email, password, repeatedPassword, kidAge, secretWord} = event.target
+    const {
+      username,
+      role,
+      email,
+      password,
+      repeatedPassword,
+      kidAge,
+      secretWord,
+    } = event.target;
     let newUser = {
       username: username.value,
-      role: role.value, 
-      email: email.value, 
-      password: password.value, 
-      repeatedPassword: repeatedPassword.value
-    }
+      role: role.value,
+      email: email.value,
+      password: password.value,
+      repeatedPassword: repeatedPassword.value,
+    };
 
-    if (role.value === 'parent') {
-      newUser.kidAge = kidAge.value
-      newUser.secretWord = secretWord.value
+    if (role.value === "parent") {
+      newUser.kidAge = kidAge.value;
+      newUser.secretWord = secretWord.value;
     }
 
     try {
-      const response = await axios.post(`http://localhost:5005/api/signup`, newUser, {withCredentials: true})
-      setUser(response.data)
-    } catch(err) {
-      setSignUpError(err.response.data.errorMessage)
+      const response = await axios.post(
+        `http://localhost:5005/api/signup`,
+        newUser,
+        { withCredentials: true }
+      );
+      setUser(response.data);
+    } catch (err) {
+      setSignUpError(err.response.data.errorMessage);
     }
   };
 
@@ -151,8 +165,8 @@ function App() {
 
     let filteredCourses = courses.filter((singleCourse) => {
       return singleCourse.name
-        .toLoweCase()
-        .includes(searchedCourse.toLoweCase());
+        .toLowerCase()
+        .includes(searchedCourse.toLowerCase());
     });
     setFilteredCourses(filteredCourses);
   };
@@ -161,15 +175,37 @@ function App() {
     <div>
     <NavBar user={user} onLogOut={handleLogOut}/>
       <Switch>
-      <Route exact path={"/"} render={() => {
-          return <LandingPage/> 
-        }} />
-        <Route path="/signin" render={(routeProps) => {
-          return <SignInForm error={signInError} onSignIn={handleSignIn} {...routeProps}  />
-        }}/>
-        <Route path="/signup" render={(routeProps) => {
-          return <SignUpForm error={signUpError} onSignUp={handleSignUp} {...routeProps}  />
-        }}/>
+        <Route
+          exact
+          path={"/"}
+          render={() => {
+            return <LandingPage />;
+          }}
+        />
+        <Route
+          path="/signin"
+          render={(routeProps) => {
+            return (
+              <SignInForm
+                error={signInError}
+                onSignIn={handleSignIn}
+                {...routeProps}
+              />
+            );
+          }}
+        />
+        <Route
+          path="/signup"
+          render={(routeProps) => {
+            return (
+              <SignUpForm
+                error={signUpError}
+                onSignUp={handleSignUp}
+                {...routeProps}
+              />
+            );
+          }}
+        />
         <Route
           path={"/create-course"}
           render={() => {
@@ -181,7 +217,10 @@ function App() {
           path={"/courses"}
           render={() => {
             return (
-              <Courses onSearch={handleSearch} courses={filteredCourses} />
+              <Courses
+                onHandleSearch={handleSearch}
+                courses={filteredCourses}
+              />
             );
           }}
         />
