@@ -59,8 +59,6 @@ function App() {
     }   
   }, [user, history, fetchingUser]);
 
-
-  // Where is the best place to put this? Was in render in classes
   if (fetchingUser) {
     return <p>Loading...</p>;
   }
@@ -115,7 +113,7 @@ function App() {
         submittedUser,
         { withCredentials: true }
       );
-      response.data.role = submittedUser.role
+      response.data.role = submittedUser.role;
       setUser(response.data);
     } catch (err) {
       setSignInError(err.response.data.errorMessage);
@@ -257,12 +255,7 @@ function App() {
         <Route
           path="/profile"
           render={(routeProps) => {
-            return (
-              <Profile
-                user={user}
-                {...routeProps}
-              />
-            );
+            return <Profile user={user} {...routeProps} />;
           }}
         />
         <Route
