@@ -12,6 +12,7 @@ import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Payment from "./components/Payment";
 import EditCourse from "./components/EditCourse";
+import ParentCourseDetail from "./components/ParentCourseDetail";
 
 function App() {
   let history = useHistory();
@@ -265,6 +266,13 @@ function App() {
           path={"/create-course"}
           render={() => {
             return <AddCourse onAddCourse={handleAddCourse} />;
+          }}
+        />
+        <Route
+          exact
+          path={"/parent/:courseId"}
+          render={(routeProps) => {
+            return <ParentCourseDetail {...routeProps} />;
           }}
         />
         <Route

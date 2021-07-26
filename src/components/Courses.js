@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import Review from "./Review";
 
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -12,6 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   cardGrid: {
-    paddingTop: theme.spacing(8),
+    paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(8),
   },
   card: {
@@ -34,7 +36,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    height: 0,
+    paddingTop: "100%",
+
+    // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -43,12 +48,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
+  title: {
+    fontWeight: "bold",
+    color: "light",
+  },
+  price: { textSecondary: "main" },
 }));
 
 function Courses(props) {
   const { courses, onHandleSearch } = props;
   const classes = useStyles();
-
+  const currentUrl = window.location.pathname;
   console.log(courses);
 
   return (
@@ -68,16 +78,27 @@ function Courses(props) {
                   title="Course image"
                 />
                 <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
+                  <Typography
+                    className={classes.title}
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                  >
                     {course.name}
                   </Typography>
-                  <Typography>{course.description}</Typography>
+
                   <Typography>By {course.tutorId.username}</Typography>
-                  <Typography>{course.price}</Typography>
+
+                  <Typography color="textSecondary">{course.price}</Typography>
+                  <Review isReadOnly="true"></Review>
                 </CardContent>
                 <CardActions>
                   <Link
-                    to={`/courses/${course._id}`}
+                    to={
+                      currentUrl === "/profile"
+                        ? `/parent/${course._id}`
+                        : `/courses/${course._id}`
+                    }
                     style={{ textDecoration: "none", textColor: "white" }}
                   >
                     <Button variant="contained" size="medium" color="primary">
@@ -90,24 +111,6 @@ function Courses(props) {
           ))}
         </Grid>
       </Container>
-      {/* <div>
-        {courses.map((course, i) => {
-          return (
-            <div key={i}>
-              <ul>
-                <li>Name: {course.name}</li>
-                <li>Description: {course.description}</li>
-                <li>Price: {course.price}</li>
-                <li>Tutor: {course.tutorId.username} </li>
-                <li>
-                  <img src={course.image} alt="course"></img>
-                </li>
-              </ul>
-              <Link to={`/courses/${course._id}`}>Read More</Link>
-            </div>
-          );
-        })}
-      </div> */}
     </>
   );
 }
