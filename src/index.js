@@ -5,7 +5,6 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import {createTheme, ThemeProvider } from '@material-ui/core';
 
-
 const theme = createTheme({
     palette: {
         primary: {
@@ -18,7 +17,6 @@ const theme = createTheme({
         }
 }
 })
-
 
 ReactDOM.render(
   <React.StrictMode>

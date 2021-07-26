@@ -3,9 +3,8 @@ import {Redirect} from "react-router-dom"
 import ParentAccount from "./ParentAccount";
 import TutorAccount from "./TutorAccount";
 
-
 function Account(props) {
-   
+
     if (!props.user){
         return <Redirect to={"/signin"}></Redirect>
     }

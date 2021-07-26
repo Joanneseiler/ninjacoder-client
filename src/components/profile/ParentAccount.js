@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import FormError from '../FormError';
+import Avatar from "@material-ui/core/Avatar";
+import ProfileAvatar from "../../Avatar.png"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(4),
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -39,11 +44,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ParentAccount(props) {
-  const [role, setRole] = React.useState("")
+  const [role, setRole] = useState("")
   const classes = useStyles();
-//   const handleSelect = (event) => {
-//     setRole(event.target.value)
-//   }
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -52,8 +55,13 @@ function ParentAccount(props) {
         <Typography component="h1" variant="h5">
             EDIT YOUR ACCOUNT DETAILS
         </Typography>
-        <form className={classes.form} noValidate>
-        {/* onSubmit={props.onSignUp} */}
+            <form className={classes.form} noValidate>
+            {/* onSubmit={props.onSignUp} */}
+            <Avatar style={{width:'200px', height:'200px'}}>
+            
+                <img src={ProfileAvatar} width='190px' alt="profile" />
+            {/* <img src={props.user.image} */}
+            </Avatar>
           <TextField
             variant="outlined"
             required
