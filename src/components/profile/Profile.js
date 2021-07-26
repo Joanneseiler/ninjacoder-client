@@ -25,6 +25,7 @@ function Profile(props) {
             props.user.role === 'parent' ? (
             <ParentProfile 
             courses={props.user.coursesBooked} 
+            profilePic={props.user.profilePic}
             className={classes.profile} 
             username={props.user.username}
             />
@@ -33,6 +34,7 @@ function Profile(props) {
             (
             <TutorProfile 
             courses={props.user.coursesAdded} 
+            profilePic={props.user.profilePic}
             className={classes.profile} 
             username={props.user.username}
             />

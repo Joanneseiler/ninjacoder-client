@@ -12,7 +12,7 @@ import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Payment from "./components/Payment";
 import EditCourse from "./components/EditCourse";
-import Account from "./components/profile/Account"
+import Account from "./components/profile/Account";
 
 function App() {
   let history = useHistory();
@@ -147,7 +147,6 @@ function App() {
       formData,
       { withCredentials: true }
     );
-    console.log(imgResponse);
 
     let newCourse = {
       name: event.target.name.value,
@@ -262,7 +261,7 @@ function App() {
         <Route
           path="/account"
           render={(routeProps) => {
-            return <Account user={user} {...routeProps} />;
+            return <Account fetchUser={fetchUser} user={user} {...routeProps} />;
           }}
         />
         <Route
