@@ -90,7 +90,7 @@ function Courses(props) {
                   <Typography>By {course.tutorId.username}</Typography>
 
                   <Typography color="textSecondary">{course.price}</Typography>
-                  <Review isReadOnly="true"></Review>
+                  <Review courseDetail={course} isReadOnly="true"></Review>
                 </CardContent>
                 <CardActions>
                   <Link
