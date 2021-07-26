@@ -23,9 +23,9 @@ function AddCourse(props) {
         />
         <input name="price" type="number" placeholder="Enter price" />
 
-        <Link to={`/profile`}>
+        
           <button type="submit">Submit course</button>
-        </Link>
+       
       </form>
     </div>
   );

@@ -165,6 +165,11 @@ function NavBar(props) {
                     Profile
                   </Link>
                 </MenuItem>,
+                <MenuItem key="desktopCreateCourse" onClick={handleMobileMenuClose}>
+                  <Link className={classes.btn} to="/create-course">
+                    Create
+                  </Link>
+                </MenuItem>,
                 <MenuItem key="desktopAccount" onClick={handleMobileMenuClose}>
                   <Link className={classes.btn} to="/account">
                     Account

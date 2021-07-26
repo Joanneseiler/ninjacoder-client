@@ -22,6 +22,13 @@ function App() {
   const [signUpError, setSignUpError] = useState(null);
   const [fetchingUser, setfetchingUser] = useState(true);
 
+  const fetchUser = async () => {
+    let userResponse = await axios.get(`http://localhost:5005/api/user`, {
+      withCredentials: true,
+    });
+    setUser(userResponse.data);
+  }
+
   useEffect(() => {
     const getCourses = async () => {
       try {
@@ -30,28 +37,27 @@ function App() {
         });
         setCourses(response.data);
         setFilteredCourses(response.data);
-        setfetchingUser(false);
-
-        let userResponse = await axios.get(`http://localhost:5005/api/user`, {
-          withCredentials: true,
-        });
-        setUser(userResponse.data);
+        await fetchUser()
         setfetchingUser(false);
       } catch (err) {
         console.log(err);
+        setfetchingUser(false);
       }
     };
     getCourses();
   }, []);
 
   useEffect(() => {
-    if (user === null) {
-      history.push("/");
-      return;
+    if ((history.location.pathname === "/signin" || "/signup") && user){
+      history.push("/profile");
     }
-
-    history.push("/profile");
-  }, [user, history]);
+    if (!user && !fetchingUser) {
+      history.push("/")
+    }
+    else {
+      history.push(history.location.pathname)
+    }   
+  }, [user, history, fetchingUser]);
 
 
   // Where is the best place to put this? Was in render in classes
@@ -124,6 +130,7 @@ function App() {
         { withCredentials: true }
       );
       setUser(null);
+      history.push("/");
     } catch {
       console.log("Logout failed");
     }
@@ -158,6 +165,7 @@ function App() {
         { withCredentials: true }
       );
       setCourses([courseResponse.data, ...courses]);
+      await fetchUser();
     } catch (err) {
       console.log("Course creation failed", err);
     }

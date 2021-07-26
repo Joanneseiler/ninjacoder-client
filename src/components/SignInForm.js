@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SignInForm(props) {
-  const [role, setRole] = React.useState("")
+  const [role, setRole] = useState("")
   const classes = useStyles();
   const handleSelect = (event) => {
     setRole(event.target.value)

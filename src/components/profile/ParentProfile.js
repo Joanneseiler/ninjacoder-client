@@ -3,6 +3,7 @@ import Logo from "../../Login-logo.png";
 import Courses from '../Courses';
 
 function ParentProfile(props) {
+    console.log(props)
     return (
         <div className={props.className}>
         <div>

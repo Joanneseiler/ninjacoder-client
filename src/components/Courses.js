@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 
 function Courses(props) {
   const { courses, onHandleSearch } = props;
-  console.log(courses);
+
   return (
     <>
       <SearchBar onSearch={onHandleSearch} />
