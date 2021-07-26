@@ -27,7 +27,7 @@ function App() {
       withCredentials: true,
     });
     setUser(userResponse.data);
-  }
+  };
 
   useEffect(() => {
     const getCourses = async () => {
@@ -37,7 +37,7 @@ function App() {
         });
         setCourses(response.data);
         setFilteredCourses(response.data);
-        await fetchUser()
+        await fetchUser();
         setfetchingUser(false);
       } catch (err) {
         console.log(err);
@@ -48,15 +48,18 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if ((history.location.pathname === "/signin" || "/signup") && user){
+    if (
+      (history.location.pathname === "/signin" ||
+        history.location.pathname === "/signup") &&
+      user
+    ) {
       history.push("/profile");
     }
     if (!user && !fetchingUser) {
-      history.push("/")
+      history.push("/");
+    } else {
+      history.push(history.location.pathname);
     }
-    else {
-      history.push(history.location.pathname)
-    }   
   }, [user, history, fetchingUser]);
 
   if (fetchingUser) {
