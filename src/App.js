@@ -44,15 +44,14 @@ function App() {
     getCourses();
   }, []);
 
-  useEffect(() => {
-    if (user === null) {
-      history.push("/");
-      return;
-    }
+  //   useEffect(() => {
+  //     if (user === null) {
+  //       history.push("/");
+  //       return;
+  //     }
 
-    history.push("/profile");
-  }, [user, history]);
-
+  //     history.push("/profile");
+  //   }, [user, history]);
 
   // Where is the best place to put this? Was in render in classes
   if (fetchingUser) {
@@ -109,7 +108,7 @@ function App() {
         submittedUser,
         { withCredentials: true }
       );
-      response.data.role = submittedUser.role
+      response.data.role = submittedUser.role;
       setUser(response.data);
     } catch (err) {
       setSignInError(err.response.data.errorMessage);
@@ -249,12 +248,7 @@ function App() {
         <Route
           path="/profile"
           render={(routeProps) => {
-            return (
-              <Profile
-                user={user}
-                {...routeProps}
-              />
-            );
+            return <Profile user={user} {...routeProps} />;
           }}
         />
         <Route

@@ -86,13 +86,11 @@ function EditCourse(props) {
           type="number"
           placeholder="Enter price"
         />
-        <Link to={`/profile`}>
-          <button type="submit">Submit changes</button>
-        </Link>
+
+        <button type="submit">Submit changes</button>
       </form>
-      <Link to={`/profile`}>
-        <button onClick={() => props.onDelete(courseDetail._id)}>Delete</button>
-      </Link>
+
+      <button onClick={() => props.onDelete(courseDetail._id)}>Delete</button>
     </div>
   );
 }
