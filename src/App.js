@@ -12,6 +12,7 @@ import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Payment from "./components/Payment";
 import EditCourse from "./components/EditCourse";
+import Account from "./components/profile/Account"
 
 function App() {
   let history = useHistory();
@@ -48,7 +49,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if ((history.location.pathname === "/signin" || "/signup") && user){
+    if ((history.location.pathname === "/signin" || history.location.pathname === "/signup") && user){
       history.push("/profile");
     }
     if (!user && !fetchingUser) {
@@ -256,6 +257,12 @@ function App() {
           path="/profile"
           render={(routeProps) => {
             return <Profile user={user} {...routeProps} />;
+          }}
+        />
+        <Route
+          path="/account"
+          render={(routeProps) => {
+            return <Account user={user} {...routeProps} />;
           }}
         />
         <Route
