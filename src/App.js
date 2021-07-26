@@ -13,6 +13,7 @@ import CourseDetail from "./components/CourseDetail";
 import Payment from "./components/Payment";
 import EditCourse from "./components/EditCourse";
 import Account from "./components/profile/Account";
+import ParentCourseDetail from "./components/ParentCourseDetail";
 
 function App() {
   let history = useHistory();
@@ -28,7 +29,7 @@ function App() {
       withCredentials: true,
     });
     setUser(userResponse.data);
-  }
+  };
 
   useEffect(() => {
     const getCourses = async () => {
@@ -38,7 +39,7 @@ function App() {
         });
         setCourses(response.data);
         setFilteredCourses(response.data);
-        await fetchUser()
+        await fetchUser();
         setfetchingUser(false);
       } catch (err) {
         console.log(err);
@@ -53,11 +54,10 @@ function App() {
       history.push("/profile");
     }
     if (!user && !fetchingUser) {
-      history.push("/")
+      history.push("/");
+    } else {
+      history.push(history.location.pathname);
     }
-    else {
-      history.push(history.location.pathname)
-    }   
   }, [user, history, fetchingUser]);
 
   if (fetchingUser) {
@@ -268,6 +268,13 @@ function App() {
           path={"/create-course"}
           render={() => {
             return <AddCourse onAddCourse={handleAddCourse} />;
+          }}
+        />
+        <Route
+          exact
+          path={"/parent/:courseId"}
+          render={(routeProps) => {
+            return <ParentCourseDetail {...routeProps} />;
           }}
         />
         <Route
