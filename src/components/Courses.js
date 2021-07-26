@@ -31,13 +31,15 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: "100%",
+    minHeight: 250,
+    minWidth: 400,
     display: "flex",
     flexDirection: "column",
   },
   cardMedia: {
-    height: 0,
-    paddingTop: "100%",
+    height: "auto",
+    paddingTop: "58.25%",
+    width: "100%",
 
     // 16:9
   },
@@ -53,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     color: "light",
   },
   price: { textSecondary: "main" },
+  readMore: { display: "flex", justifyContent: "flex-end" },
 }));
 
 function Courses(props) {
@@ -94,6 +97,7 @@ function Courses(props) {
                 </CardContent>
                 <CardActions>
                   <Link
+                    className={classes.readMore}
                     to={
                       currentUrl === "/profile"
                         ? `/parent/${course._id}`
@@ -101,7 +105,7 @@ function Courses(props) {
                     }
                     style={{ textDecoration: "none", textColor: "white" }}
                   >
-                    <Button variant="contained" size="medium" color="primary">
+                    <Button size="small" color="primary">
                       Read more
                     </Button>
                   </Link>
