@@ -261,7 +261,7 @@ function App() {
         <Route
           path="/account"
           render={(routeProps) => {
-            return <Account fetchUser={fetchUser} user={user} {...routeProps} />;
+            return <Account logoutUser={handleLogOut} fetchUser={fetchUser} user={user} {...routeProps} />;
           }}
         />
         <Route

@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 import FormError from '../FormError';
 import Avatar from "@material-ui/core/Avatar";
 import axios from "axios";
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,11 +41,30 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     marginTop: theme.spacing(2),
+  },
+  headline: {
+    textAlign: "center"
   }
 }));
 
-const getDefaultProfilePicByRole = (role) => {
-    if (role === 'parent') {
+const getInitialImage = (props) => {
+    if (props.user === null || props.user === undefined) {
+        return null;
+    }
+
+    return getDefaultProfilePicByRole(props);
+}
+
+const getDefaultProfilePicByRole = (props) => {
+    if (props.user === undefined) {
+        return;
+    }
+
+    if (props.user.role === undefined) {
+        return;
+    }
+
+    if (props.user.role === 'parent') {
         return 'http://localhost:5005/images/default-ninja.png'
     }
 
@@ -54,9 +73,10 @@ const getDefaultProfilePicByRole = (role) => {
 
 function Account(props) {
     const classes = useStyles();
+    let history = useHistory()
     const [errors, setErrors] = useState([]);
     const [loading, setLoading] = useState(false);
-    const initialImage = props.user.profilePic ?? getDefaultProfilePicByRole(props.user.role);
+    const initialImage = getInitialImage(props);
     const [imagePreview, setImagePreview] = useState(initialImage)
 
     if (!props.user){
@@ -175,6 +195,23 @@ function Account(props) {
         }
     }
 
+    const handleAccountDelete = async (event) => {
+        setLoading(true);
+        event.preventDefault();
+
+        try {
+            await axios.delete(
+                `http://localhost:5005/api/${props.user.role}/delete`,
+                {withCredentials: true}
+            );
+            props.logoutUser();
+        } 
+        catch(err) {
+            setErrors(["There was an error deleting the user"]);
+            console.log(err);
+        }
+    }
+
     const ParentComponents = (props) => {
         if (!props.isVisible) {
             return <></>
@@ -212,7 +249,7 @@ function Account(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" className={classes.headline} variant="h5">
             EDIT YOUR ACCOUNT DETAILS
         </Typography>
             <form className={classes.form} noValidate onSubmit={handleAccountSubmit}>
@@ -295,6 +332,7 @@ function Account(props) {
                 variant="contained"
                 color="secondary"
                 className={classes.submit}
+                onClick={handleAccountDelete}
             >
             <svg xmlns="http://www.w3.org/2000/svg" 
             width="16" height="16" fill="currentColor" 
