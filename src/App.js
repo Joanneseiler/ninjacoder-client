@@ -19,7 +19,6 @@ function App() {
   let history = useHistory();
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
-  const [filteredCourses, setFilteredCourses] = useState([]);
   const [signInError, setSignInError] = useState(null);
   const [signUpError, setSignUpError] = useState(null);
   const [fetchingUser, setfetchingUser] = useState(true);
@@ -38,7 +37,6 @@ function App() {
           withCredentials: true, // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
         });
         setCourses(response.data);
-        setFilteredCourses(response.data);
         await fetchUser();
         setfetchingUser(false);
       } catch (err) {
@@ -50,7 +48,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if ((history.location.pathname === "/signin" || history.location.pathname === "/signup") && user){
+    if (
+      (history.location.pathname === "/signin" ||
+        history.location.pathname === "/signup") &&
+      user
+    ) {
       history.push("/profile");
     }
     if (!user && !fetchingUser) {
@@ -205,18 +207,6 @@ function App() {
     setCourses(filteredCourses);
   };
 
-  // Searchbar
-  const handleSearch = (event) => {
-    let searchedCourse = event.target.value;
-
-    let filteredCourses = courses.filter((singleCourse) => {
-      return singleCourse.name
-        .toLowerCase()
-        .includes(searchedCourse.toLowerCase());
-    });
-    setFilteredCourses(filteredCourses);
-  };
-
   return (
     <div>
       <NavBar user={user} onLogOut={handleLogOut} />
@@ -281,12 +271,7 @@ function App() {
           exact
           path={"/courses"}
           render={() => {
-            return (
-              <Courses
-                onHandleSearch={handleSearch}
-                courses={filteredCourses}
-              />
-            );
+            return <Courses courses={courses} />;
           }}
         />
         <Route

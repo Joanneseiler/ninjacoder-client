@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import Review from "./Review";
@@ -16,6 +16,12 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
+  searchBar: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    marginTop: 24,
+  },
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -31,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    minHeight: 250,
-    minWidth: 400,
+    minHeight: 300,
     display: "flex",
     flexDirection: "column",
   },
@@ -44,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     // 16:9
   },
   cardContent: {
-    flexGrow: 1,
+    height: 200,
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -54,25 +59,41 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     color: "light",
   },
-  price: { textSecondary: "main" },
+  price: {
+    textSecondary: "main",
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  stars: {},
   readMore: { display: "flex", justifyContent: "flex-end" },
 }));
 
 function Courses(props) {
-  const { courses, onHandleSearch } = props;
+  const { courses } = props;
+  const [filteredCourses, setFilteredCourses] = useState(courses);
   const classes = useStyles();
   const currentUrl = window.location.pathname;
-  console.log(courses);
+
+  // Searchbar
+  const onHandleSearch = (event) => {
+    let searchedCourse = event.target.value;
+
+    let filteredCourses = courses.filter((singleCourse) => {
+      return singleCourse.name
+        .toLowerCase()
+        .includes(searchedCourse.toLowerCase());
+    });
+    setFilteredCourses(filteredCourses);
+  };
 
   return (
     <>
       <CssBaseline />
-      <SearchBar onSearch={onHandleSearch} />
-
+      <SearchBar className={classes.searchBar} onSearch={onHandleSearch} />
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={4}>
-          {courses.map((course, card) => (
+          {filteredCourses.map((course, card) => (
             <Grid item key={card} xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
@@ -92,12 +113,17 @@ function Courses(props) {
 
                   <Typography>By {course.tutorId.username}</Typography>
 
-                  <Typography color="textSecondary">{course.price}</Typography>
-                  <Review courseDetail={course} isReadOnly="true"></Review>
+                  <Typography className={classes.price}>
+                    {course.price} $
+                  </Typography>
+                  <Review
+                    className={classes.stars}
+                    courseDetail={course}
+                    isReadOnly="true"
+                  ></Review>
                 </CardContent>
-                <CardActions>
+                <CardActions className={classes.readMore}>
                   <Link
-                    className={classes.readMore}
                     to={
                       currentUrl === "/profile"
                         ? `/parent/${course._id}`
@@ -105,7 +131,7 @@ function Courses(props) {
                     }
                     style={{ textDecoration: "none", textColor: "white" }}
                   >
-                    <Button size="small" color="primary">
+                    <Button size="medium" color="primary">
                       Read more
                     </Button>
                   </Link>
