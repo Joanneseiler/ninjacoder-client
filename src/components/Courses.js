@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import Review from "./Review";
@@ -69,20 +69,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Courses(props) {
-  const { courses, onHandleSearch } = props;
+  const { courses } = props;
+  const [filteredCourses, setFilteredCourses] = useState(courses);
   const classes = useStyles();
   const currentUrl = window.location.pathname;
-  console.log(courses);
+
+  // Searchbar
+  const onHandleSearch = (event) => {
+    let searchedCourse = event.target.value;
+
+    let filteredCourses = courses.filter((singleCourse) => {
+      return singleCourse.name
+        .toLowerCase()
+        .includes(searchedCourse.toLowerCase());
+    });
+    setFilteredCourses(filteredCourses);
+  };
 
   return (
     <>
       <CssBaseline />
       <SearchBar className={classes.searchBar} onSearch={onHandleSearch} />
-
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={4}>
-          {courses.map((course, card) => (
+          {filteredCourses.map((course, card) => (
             <Grid item key={card} xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
