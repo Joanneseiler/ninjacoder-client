@@ -166,6 +166,7 @@ function App() {
       );
       setCourses([courseResponse.data, ...courses]);
       await fetchUser();
+      history.push("/profile");
     } catch (err) {
       console.log("Course creation failed", err);
     }
@@ -245,13 +246,20 @@ function App() {
         <Route
           path="/profile"
           render={(routeProps) => {
-            return <Profile user={user} {...routeProps} />;
+            return <Profile {...routeProps} />;
           }}
         />
         <Route
           path="/account"
           render={(routeProps) => {
-            return <Account logoutUser={handleLogOut} fetchUser={fetchUser} user={user} {...routeProps} />;
+            return (
+              <Account
+                logoutUser={handleLogOut}
+                fetchUser={fetchUser}
+                user={user}
+                {...routeProps}
+              />
+            );
           }}
         />
         <Route

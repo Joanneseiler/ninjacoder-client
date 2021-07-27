@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ParentProfile from "./ParentProfile";
 import TutorProfile from "./TutorProfile";
 import { makeStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   profile: {
@@ -14,32 +15,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Profile(props) {
-    const classes = useStyles()
-   
-    if (!props.user){
-        return <Redirect to={"/signin"}></Redirect>
-    }
-    return (
-        <>
-        {
-            props.user.role === 'parent' ? (
-            <ParentProfile 
-            courses={props.user.coursesBooked} 
-            user={props.user}
-            className={classes.profile} 
-            />
-            ) 
-            : 
-            (
-            <TutorProfile 
-            courses={props.user.coursesAdded} 
-            user={props.user}
-            className={classes.profile} 
-            />
-            )
-        }
-        </>
-    )
+  const [user, setUser] = useState(null);
+  const classes = useStyles();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        let userResponse = await axios.get(`http://localhost:5005/api/user`, {
+          withCredentials: true,
+        });
+        setUser(userResponse.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if (!user) {
+    return <p>Loading...</p>;
+  }
+  return (
+    <>
+      {user.role === "parent" ? (
+        <ParentProfile
+          courses={user.coursesBooked}
+          user={user}
+          className={classes.profile}
+        />
+      ) : (
+        <TutorProfile
+          courses={user.coursesAdded}
+          user={user}
+          className={classes.profile}
+        />
+      )}
+    </>
+  );
 }
 
 export default Profile;

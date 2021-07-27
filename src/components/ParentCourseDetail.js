@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Review from "./Review";
-
+import ReactPlayer from "react-player";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -30,7 +30,10 @@ function ParentCourseDetail(props) {
     <div>
       <ul>
         <li>Name: {courseDetail.name}</li>
-        <li>Video: {courseDetail.video}</li>
+        <li>
+          Video:
+          <ReactPlayer url={courseDetail.video} />
+        </li>
         <li>Description: {courseDetail.description}</li>
         <li>Tutor: {courseDetail.tutorId.username} </li>
       </ul>
