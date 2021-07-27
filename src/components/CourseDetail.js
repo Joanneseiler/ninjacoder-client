@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core";
+
+// const useStyles = makeStyles((theme)){
+
+// }
 
 function CourseDetail(props) {
   const [courseDetail, setCourseDetail] = useState(null);
@@ -27,13 +32,14 @@ function CourseDetail(props) {
   return (
     <div>
       <ul>
+        <li>
+          <img src={courseDetail.image} alt="course"></img>
+        </li>
         <li>Name: {courseDetail.name}</li>
         <li>Description: {courseDetail.description}</li>
         <li>Price: {courseDetail.price}</li>
         <li>Tutor: {courseDetail.tutorId.username} </li>
-        <li>
-          <img src={courseDetail.image} alt="course"></img>
-        </li>
+
         <li>Video: {courseDetail.video}</li>
       </ul>
       <Link to={`/courses/${courseDetail._id}/payment`}>Enroll</Link>

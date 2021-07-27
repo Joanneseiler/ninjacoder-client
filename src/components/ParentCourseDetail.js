@@ -35,7 +35,7 @@ function ParentCourseDetail(props) {
         <li>Tutor: {courseDetail.tutorId.username} </li>
       </ul>
       <Review courseDetail={courseDetail}></Review>
-      <Link to="#">Finished!</Link>
+      <Link to={"/profile"}>Finished!</Link>
     </div>
   );
 }

@@ -16,6 +16,12 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
+  searchBar: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    marginTop: 24,
+  },
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -31,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    minHeight: 250,
-    minWidth: 400,
+    minHeight: 300,
     display: "flex",
     flexDirection: "column",
   },
@@ -44,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     // 16:9
   },
   cardContent: {
-    flexGrow: 1,
+    height: 200,
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -54,7 +59,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     color: "light",
   },
-  price: { textSecondary: "main" },
+  price: {
+    textSecondary: "main",
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  stars: {},
   readMore: { display: "flex", justifyContent: "flex-end" },
 }));
 
@@ -67,7 +77,7 @@ function Courses(props) {
   return (
     <>
       <CssBaseline />
-      <SearchBar onSearch={onHandleSearch} />
+      <SearchBar className={classes.searchBar} onSearch={onHandleSearch} />
 
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
@@ -92,12 +102,17 @@ function Courses(props) {
 
                   <Typography>By {course.tutorId.username}</Typography>
 
-                  <Typography color="textSecondary">{course.price}</Typography>
-                  <Review courseDetail={course} isReadOnly="true"></Review>
+                  <Typography className={classes.price}>
+                    {course.price} $
+                  </Typography>
+                  <Review
+                    className={classes.stars}
+                    courseDetail={course}
+                    isReadOnly="true"
+                  ></Review>
                 </CardContent>
-                <CardActions>
+                <CardActions className={classes.readMore}>
                   <Link
-                    className={classes.readMore}
                     to={
                       currentUrl === "/profile"
                         ? `/parent/${course._id}`
@@ -105,7 +120,7 @@ function Courses(props) {
                     }
                     style={{ textDecoration: "none", textColor: "white" }}
                   >
-                    <Button size="small" color="primary">
+                    <Button size="medium" color="primary">
                       Read more
                     </Button>
                   </Link>
