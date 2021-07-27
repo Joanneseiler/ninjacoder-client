@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import NinjaCoderLogo from "../NinjaCoder-logo.png"
+import NinjaCoderFont from "../fontlogo.png"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -98,6 +99,13 @@ function NavBar(props) {
 
       {props.user ? (
         [
+          <MenuItem key="mobileCreateCourse" onClick={handleMobileMenuClose}>
+            <Link 
+            className={classes.btn} 
+            to="/create-course">
+              Course creation
+            </Link>
+          </MenuItem>,
           <MenuItem key="mobileProfile" onClick={handleMobileMenuClose}>
             <Link 
             className={classes.btn} 
@@ -147,7 +155,7 @@ function NavBar(props) {
           <Typography className={classes.title} variant="h6">
             <Button component={Link} to="/">   
               <img style={{width: '35px' , marginRight: "8px"}} src={NinjaCoderLogo} alt="NinjaCoder logo"/> 
-              NinjaCoder
+              <img style={{width: '140px' , marginRight: "8px"}} src={NinjaCoderFont} alt="NinjaCoder font"/>
             </Button>
           </Typography>
 
@@ -160,14 +168,14 @@ function NavBar(props) {
             </MenuItem>
             {props.user ? (
                 [
+                <MenuItem key="desktopCreateCourse" onClick={handleMobileMenuClose}>
+                  <Link className={classes.btn} to="/create-course">
+                    Course creation
+                  </Link>
+                </MenuItem>,
                 <MenuItem key="desktopProfile" onClick={handleMobileMenuClose}>
                   <Link className={classes.btn} to="/profile">
                     Profile
-                  </Link>
-                </MenuItem>,
-                <MenuItem key="desktopCreateCourse" onClick={handleMobileMenuClose}>
-                  <Link className={classes.btn} to="/create-course">
-                    Create
                   </Link>
                 </MenuItem>,
                 <MenuItem key="desktopAccount" onClick={handleMobileMenuClose}>
