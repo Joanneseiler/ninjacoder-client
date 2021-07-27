@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import {API_URL} from "../config"
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -52,7 +52,7 @@ function EditCourse(props) {
       try {
         let courseId = props.match.params.courseId;
         let response = await axios.get(
-          `http://localhost:5005/api/courses/${courseId}`
+          `${API_URL}/api/courses/${courseId}`
         );
         setCourseDetail(response.data);
       } catch (err) {

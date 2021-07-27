@@ -10,6 +10,7 @@ import FormError from '../FormError';
 import Avatar from "@material-ui/core/Avatar";
 import axios from "axios";
 import { Redirect, useHistory} from 'react-router-dom';
+import {API_URL} from "../../config"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -65,10 +66,10 @@ const getDefaultProfilePicByRole = (props) => {
     }
 
     if (props.user.role === 'parent') {
-        return 'http://localhost:5005/images/default-ninja.png'
+        return `${API_URL}/images/default-ninja.png`
     }
 
-    return 'http://localhost:5005/images/Avatar.png';
+    return `${API_URL}/images/Avatar.png`;
 }
 
 function Account(props) {
@@ -166,7 +167,7 @@ function Account(props) {
 
         try {
             const userResponse = await axios.patch(
-                `http://localhost:5005/api/${role}/edit`, 
+                `${API_URL}/api/${role}/edit`, 
                 userEditData,
                 {withCredentials: true}
             );
@@ -184,7 +185,7 @@ function Account(props) {
 
         try {
             const response = await axios.post(
-                "http://localhost:5005/api/upload",
+                `${API_URL}/api/upload`,
                 formData,
                 { withCredentials: true }
             );
@@ -201,7 +202,7 @@ function Account(props) {
 
         try {
             await axios.delete(
-                `http://localhost:5005/api/${props.user.role}/delete`,
+                `${API_URL}/api/${props.user.role}/delete`,
                 {withCredentials: true}
             );
             props.logoutUser();

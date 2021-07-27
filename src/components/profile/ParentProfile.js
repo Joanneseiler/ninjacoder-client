@@ -1,10 +1,11 @@
 import React from 'react';
 import Courses from '../Courses';
 import Avatar from "@material-ui/core/Avatar";
+import {API_URL} from "../../config"
 
 function ParentProfile(props) {
     if (props.user.profilePic === null || props.user.profilePic === undefined) {
-        props.user.profilePic = 'http://localhost:5005/images/default-ninja.png'
+        props.user.profilePic = `${API_URL}/images/default-ninja.png`
     }
     
     return (
