@@ -155,7 +155,7 @@ function NavBar(props) {
           <Typography className={classes.title} variant="h6">
             <Button component={Link} to="/">   
               <img style={{width: '35px' , marginRight: "8px"}} src={NinjaCoderLogo} alt="NinjaCoder logo"/> 
-              <img style={{width: '140px' , marginRight: "8px"}} src={NinjaCoderFont} alt="NinjaCoder font"/>
+              <img style={{width: '130px' , marginRight: "8px"}} src={NinjaCoderFont} alt="NinjaCoder font"/>
             </Button>
           </Typography>
 
