@@ -47,7 +47,7 @@ function TutorProfile(props) {
           </Typography>
         </div>
       </div>
-      <div className={props.className}>
+      <div>
         <Courses
           currentRole={props.user.role}
           courses={props.courses}

@@ -98,6 +98,7 @@ function App() {
         { withCredentials: true }
       );
       setUser(response.data);
+      setSignUpError(null);
     } catch (err) {
       setSignUpError(err.response.data.errorMessage);
     }
@@ -119,6 +120,7 @@ function App() {
       );
       response.data.role = submittedUser.role;
       setUser(response.data);
+      setSignInError(null);
     } catch (err) {
       setSignInError(err.response.data.errorMessage);
     }

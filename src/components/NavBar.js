@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 import NinjaCoderLogo from "../NinjaCoder-logo.png"
 import NinjaCoderFont from "../fontlogo.png"
 
-
 const useStyles = makeStyles((theme) => ({
   btn: {
     textDecoration: "none",
@@ -42,6 +41,100 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+function MenuItems(props) {
+  if (!props.user || !props.user.role) {
+    return [
+      <MenuItem onClick={props.handleClose}>
+      <Link className={props.classes.btn} to="/courses">
+        Courses
+      </Link>
+    </MenuItem>,
+      <MenuItem key="mobileSignIn" onClick={props.handleClose}>
+      <Link className={props.classes.btn} to="/signin">
+        SignIn
+      </Link>
+    </MenuItem>,
+    <MenuItem key="mobileSignUp" onClick={props.handleClose}>
+      <Link className={props.classes.btn} to="/signup">
+        SignUp
+      </Link>
+    </MenuItem>
+    ];
+  }
+
+  if (props.user.role === 'parent') {
+    return [
+      <MenuItem onClick={props.handleClose}>
+      <Link className={props.classes.btn} to="/courses">
+        Courses
+      </Link>
+    </MenuItem>,
+      <MenuItem key="mobileProfile" onClick={props.handleClose}>
+        <Link 
+        className={props.classes.btn} 
+        to="/profile">
+          Profile
+        </Link>
+      </MenuItem>,
+      <MenuItem key="mobileAccount" onClick={props.handleClose}>
+        <Link 
+        className={props.classes.btn} 
+        to="/account">
+          Account
+        </Link>
+      </MenuItem>,
+      <MenuItem key="mobileLogout" onClick={props.handleClose}>
+        <Link
+          className={props.classes.btn}
+          to="/"
+          onClick={props.onLogOut}>
+          Logout
+        </Link>
+      </MenuItem>
+    ];
+  }
+
+  if (props.user.role === 'tutor') {
+    return [
+      <MenuItem onClick={props.handleClose}>
+      <Link className={props.classes.btn} to="/courses">
+        Courses
+      </Link>
+    </MenuItem>,
+      <MenuItem key="mobileCreateCourse" onClick={props.handleClose}>
+        <Link 
+        className={props.classes.btn} 
+        to="/create-course">
+          Course creation
+        </Link>
+      </MenuItem>,
+      <MenuItem key="mobileProfile" onClick={props.handleClose}>
+        <Link 
+        className={props.classes.btn} 
+        to="/profile">
+          Profile
+        </Link>
+      </MenuItem>,
+      <MenuItem key="mobileAccount" onClick={props.handleClose}>
+        <Link 
+        className={props.classes.btn} 
+        to="/account">
+          Account
+        </Link>
+      </MenuItem>,
+      <MenuItem key="mobileLogout" onClick={props.handleClose}>
+        <Link
+          className={props.classes.btn}
+          to="/"
+          onClick={props.onLogOut}>
+          Logout
+        </Link>
+      </MenuItem>
+    ];
+  }
+
+}
 
 function NavBar(props) {
   
@@ -91,59 +184,7 @@ function NavBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleMobileMenuClose}>
-        <Link className={classes.btn} to="/courses">
-          Courses
-        </Link>
-      </MenuItem>
-
-      {props.user ? (
-        [
-          <MenuItem key="mobileCreateCourse" onClick={handleMobileMenuClose}>
-            <Link 
-            className={classes.btn} 
-            to="/create-course">
-              Course creation
-            </Link>
-          </MenuItem>,
-          <MenuItem key="mobileProfile" onClick={handleMobileMenuClose}>
-            <Link 
-            className={classes.btn} 
-            to="/profile">
-              Profile
-            </Link>
-          </MenuItem>,
-          <MenuItem key="mobileAccount" onClick={handleMobileMenuClose}>
-            <Link 
-            className={classes.btn} 
-            to="/account">
-              Account
-            </Link>
-          </MenuItem>,
-          <MenuItem key="mobileLogout" onClick={handleMobileMenuClose}>
-            <Link
-              className={classes.btn}
-              to="/"
-              onClick={props.onLogOut}
-            >
-              Logout
-            </Link>
-          </MenuItem>
-        ]
-      ) : (
-        [
-          <MenuItem key="mobileSignIn" onClick={handleMobileMenuClose}>
-            <Link className={classes.btn} to="/signin">
-              SignIn
-            </Link>
-          </MenuItem>,
-          <MenuItem key="mobileSignUp" onClick={handleMobileMenuClose}>
-            <Link className={classes.btn} to="/signup">
-              SignUp
-            </Link>
-          </MenuItem>
-        ]
-      )}
+      <MenuItems classes={classes} user={props.user} onLogOut={props.onLogOut} handleClose={handleMobileMenuClose}></MenuItems>
     </Menu>
   );
 
@@ -161,51 +202,7 @@ function NavBar(props) {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <MenuItem>
-              <Link className={classes.btn} to="/courses">
-                Courses
-              </Link>
-            </MenuItem>
-            {props.user ? (
-                [
-                <MenuItem key="desktopCreateCourse" onClick={handleMobileMenuClose}>
-                  <Link className={classes.btn} to="/create-course">
-                    Course creation
-                  </Link>
-                </MenuItem>,
-                <MenuItem key="desktopProfile" onClick={handleMobileMenuClose}>
-                  <Link className={classes.btn} to="/profile">
-                    Profile
-                  </Link>
-                </MenuItem>,
-                <MenuItem key="desktopAccount" onClick={handleMobileMenuClose}>
-                  <Link className={classes.btn} to="/account">
-                    Account
-                  </Link>
-                </MenuItem>,
-                <MenuItem key="desktopHome" onClick={handleMobileMenuClose}>
-                  <Link
-                    className={classes.btn}
-                    to="/"
-                    onClick={props.onLogOut}>
-                    Logout
-                  </Link>
-                </MenuItem>
-                ]
-            ) : (
-              [
-                <MenuItem key="desktopSignIn">
-                  <Link className={classes.btn} to="/signin">
-                    SignIn
-                  </Link>
-                </MenuItem>,
-                <MenuItem key="desktopSignUp">
-                  <Link className={classes.btn} to="/signup">
-                    SignUp
-                  </Link>
-                </MenuItem>
-              ]
-            )}
+            <MenuItems classes={classes} user={props.user} onLogOut={props.onLogOut} handleClose={handleMobileMenuClose}></MenuItems>
           </div>
           <div className={classes.sectionMobile}>
 

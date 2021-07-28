@@ -85,6 +85,7 @@ function Account(props) {
     }
 
     const handleAccountSubmit = async (event) => {
+        setErrors([]);
         setLoading(true);
         event.preventDefault();
 
