@@ -4,7 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import envelope from "../../envelope-solid.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import {API_URL} from "../../config"
+import { API_URL } from "../../config";
 
 const useStyles = makeStyles((theme) => ({
   headline: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 function TutorProfile(props) {
   const classes = useStyles();
   if (props.user.profilePic === null || props.user.profilePic === undefined) {
-   props.user.profilePic = `${API_URL}/images/Avatar.png`
+    props.user.profilePic = `${API_URL}/images/Avatar.png`;
   }
 
   return (

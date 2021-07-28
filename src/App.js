@@ -14,7 +14,7 @@ import Payment from "./components/Payment";
 import EditCourse from "./components/EditCourse";
 import Account from "./components/profile/Account";
 import ParentCourseDetail from "./components/ParentCourseDetail";
-import {API_URL} from "./config"
+import { API_URL } from "./config";
 
 function App() {
   let history = useHistory();
@@ -92,11 +92,9 @@ function App() {
     }
 
     try {
-      const response = await axios.post(
-        `${API_URL}/api/signup`,
-        newUser,
-        { withCredentials: true }
-      );
+      const response = await axios.post(`${API_URL}/api/signup`, newUser, {
+        withCredentials: true,
+      });
       setUser(response.data);
     } catch (err) {
       setSignUpError(err.response.data.errorMessage);
@@ -126,11 +124,7 @@ function App() {
 
   const handleLogOut = async () => {
     try {
-      await axios.post(
-        `${API_URL}/api/logout`,
-        {},
-        { withCredentials: true }
-      );
+      await axios.post(`${API_URL}/api/logout`, {}, { withCredentials: true });
       setUser(null);
       history.push("/");
     } catch {
@@ -145,11 +139,9 @@ function App() {
     let formData = new FormData();
     formData.append("imageUrl", event.target.image.files[0]);
 
-    let imgResponse = await axios.post(
-      `${API_URL}/api/upload`,
-      formData,
-      { withCredentials: true }
-    );
+    let imgResponse = await axios.post(`${API_URL}/api/upload`, formData, {
+      withCredentials: true,
+    });
 
     let newCourse = {
       name: event.target.name.value,
@@ -177,11 +169,9 @@ function App() {
   const handleEditCourse = async (event, course) => {
     event.preventDefault();
 
-    await axios.patch(
-      `${API_URL}/api/tutor/courses/${course._id}`,
-      course,
-      { withCredentials: true }
-    );
+    await axios.patch(`${API_URL}/api/tutor/courses/${course._id}`, course, {
+      withCredentials: true,
+    });
     try {
       let updatedCourse = courses.map((singleCourse) => {
         if (singleCourse._id === course._id) {
@@ -193,6 +183,7 @@ function App() {
         return singleCourse;
       });
       setCourses(updatedCourse);
+      history.push("/profile");
     } catch (err) {
       console.log(err.response.data.error); //error to be common
     }
