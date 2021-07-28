@@ -75,7 +75,10 @@ function EditCourse(props) {
     setCourseDetail({ ...courseDetail, price: newPrice });
   };
 
-  //const img TODO
+  const handleImageChange = (event) => {
+    let newImage = event.target.value;
+    setCourseDetail({ ...courseDetail, image: newImage });
+  };
 
   const handleVideoChange = (event) => {
     let newVideo = event.target.value;
@@ -146,7 +149,13 @@ function EditCourse(props) {
             onChange={handlePriceChange}
             value={courseDetail.price}
           />
-          <input name="image" type="file" accept="image/png, image/jpeg" />
+
+          <input
+            name="image"
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={handleImageChange}
+          />
           <TextField
             variant="outlined"
             required

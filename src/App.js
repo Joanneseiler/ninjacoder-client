@@ -169,6 +169,13 @@ function App() {
   const handleEditCourse = async (event, course) => {
     event.preventDefault();
 
+    let formData = new FormData();
+    formData.append("imageUrl", event.target.image.files[0]);
+
+    let imgResponse = await axios.post(`${API_URL}/api/upload`, formData, {
+      withCredentials: true,
+    });
+
     await axios.patch(`${API_URL}/api/tutor/courses/${course._id}`, course, {
       withCredentials: true,
     });
@@ -177,6 +184,7 @@ function App() {
         if (singleCourse._id === course._id) {
           singleCourse.name = course.name;
           singleCourse.description = course.description;
+          singleCourse.image = imgResponse.data.image;
           singleCourse.video = course.video;
           singleCourse.price = course.price;
         }
@@ -198,6 +206,7 @@ function App() {
       return singleCourse._id !== courseId;
     });
     setCourses(filteredCourses);
+    history.push("/profile");
   };
 
   return (
