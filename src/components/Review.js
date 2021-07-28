@@ -11,7 +11,6 @@ export default function SimpleRating(props) {
   useEffect(() => {
     const getReview = async () => {
       try {
-        const currentPath = window.location.pathname;
         let review = await axios.get(
           `${API_URL}/api/courses/${courseDetail._id}/rating`,
           {

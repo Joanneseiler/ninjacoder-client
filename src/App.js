@@ -172,12 +172,16 @@ function App() {
   const handleEditCourse = async (event, course) => {
     event.preventDefault();
 
-    let formData = new FormData();
-    formData.append("imageUrl", event.target.image.files[0]);
+    let newImage = event.target.image.files[0];
+    if (newImage) {
+      let formData = new FormData();
+      formData.append("imageUrl", newImage);
 
-    let imgResponse = await axios.post(`${API_URL}/api/upload`, formData, {
-      withCredentials: true,
-    });
+      let imgResponse = await axios.post(`${API_URL}/api/upload`, formData, {
+        withCredentials: true,
+      });
+      course.image = imgResponse.data.image;
+    }
 
     await axios.patch(`${API_URL}/api/tutor/courses/${course._id}`, course, {
       withCredentials: true,
@@ -187,12 +191,13 @@ function App() {
         if (singleCourse._id === course._id) {
           singleCourse.name = course.name;
           singleCourse.description = course.description;
-          singleCourse.image = imgResponse.data.image;
+          singleCourse.image = course.image;
           singleCourse.video = course.video;
           singleCourse.price = course.price;
         }
         return singleCourse;
       });
+      console.log(updatedCourse);
       setCourses(updatedCourse);
       history.push("/profile");
     } catch (err) {
@@ -215,109 +220,110 @@ function App() {
   return (
     <div>
       <NavBar user={user} onLogOut={handleLogOut} />
-      {fetchingUser 
-      ? <LoadingIndicator></LoadingIndicator>
-      :       <Switch>
-        <Route
-          exact
-          path={"/"}
-          render={() => {
-            return <LandingPage />;
-          }}
-        />
-        <Route
-          path="/signin/:role?"
-          render={(routeProps) => {
-            return (
-              <SignInForm
-                error={signInError}
-                onSignIn={handleSignIn}
-                {...routeProps}
-              />
-            );
-          }}
-        />
-        <Route
-          path="/signup"
-          render={(routeProps) => {
-            return (
-              <SignUpForm
-                error={signUpError}
-                onSignUp={handleSignUp}
-                {...routeProps}
-              />
-            );
-          }}
-        />
-        <Route
-          path="/profile"
-          render={(routeProps) => {
-            return <Profile {...routeProps} />;
-          }}
-        />
-        <Route
-          path="/account"
-          render={(routeProps) => {
-            return (
-              <Account
-                logoutUser={handleLogOut}
-                fetchUser={fetchUser}
-                user={user}
-                {...routeProps}
-              />
-            );
-          }}
-        />
-        <Route
-          path={"/create-course"}
-          render={() => {
-            return <AddCourse onAddCourse={handleAddCourse} />;
-          }}
-        />
-        <Route
-          exact
-          path={"/parent/:courseId"}
-          render={(routeProps) => {
-            return <ParentCourseDetail {...routeProps} />;
-          }}
-        />
-        <Route
-          exact
-          path={"/courses"}
-          render={() => {
-            return <Courses courses={courses} />;
-          }}
-        />
-        <Route
-          exact
-          path={"/courses/:courseId"}
-          render={(routeProps) => {
-            return <CourseDetail {...routeProps} />;
-          }}
-        />
-        <Route
-          exact
-          path={"/courses/:courseId/payment"}
-          render={(routeProps) => {
-            return <Payment {...routeProps} />;
-          }}
-        />
-        <Route
-          exact
-          path={"/courses/:courseId/edit"}
-          render={(routeProps) => {
-            return (
-              <EditCourse
-                onDelete={handleDeleteCourse}
-                onEditCourse={handleEditCourse}
-                {...routeProps}
-              />
-            );
-          }}
-        />
-        <Route component={NotFound} />
-      </Switch>
-      }
+      {fetchingUser ? (
+        <LoadingIndicator></LoadingIndicator>
+      ) : (
+        <Switch>
+          <Route
+            exact
+            path={"/"}
+            render={() => {
+              return <LandingPage />;
+            }}
+          />
+          <Route
+            path="/signin/:role?"
+            render={(routeProps) => {
+              return (
+                <SignInForm
+                  error={signInError}
+                  onSignIn={handleSignIn}
+                  {...routeProps}
+                />
+              );
+            }}
+          />
+          <Route
+            path="/signup"
+            render={(routeProps) => {
+              return (
+                <SignUpForm
+                  error={signUpError}
+                  onSignUp={handleSignUp}
+                  {...routeProps}
+                />
+              );
+            }}
+          />
+          <Route
+            path="/profile"
+            render={(routeProps) => {
+              return <Profile {...routeProps} />;
+            }}
+          />
+          <Route
+            path="/account"
+            render={(routeProps) => {
+              return (
+                <Account
+                  logoutUser={handleLogOut}
+                  fetchUser={fetchUser}
+                  user={user}
+                  {...routeProps}
+                />
+              );
+            }}
+          />
+          <Route
+            path={"/create-course"}
+            render={() => {
+              return <AddCourse onAddCourse={handleAddCourse} />;
+            }}
+          />
+          <Route
+            exact
+            path={"/parent/:courseId"}
+            render={(routeProps) => {
+              return <ParentCourseDetail {...routeProps} />;
+            }}
+          />
+          <Route
+            exact
+            path={"/courses"}
+            render={() => {
+              return <Courses courses={courses} />;
+            }}
+          />
+          <Route
+            exact
+            path={"/courses/:courseId"}
+            render={(routeProps) => {
+              return <CourseDetail {...routeProps} />;
+            }}
+          />
+          <Route
+            exact
+            path={"/courses/:courseId/payment"}
+            render={(routeProps) => {
+              return <Payment {...routeProps} />;
+            }}
+          />
+          <Route
+            exact
+            path={"/courses/:courseId/edit"}
+            render={(routeProps) => {
+              return (
+                <EditCourse
+                  onDelete={handleDeleteCourse}
+                  onEditCourse={handleEditCourse}
+                  {...routeProps}
+                />
+              );
+            }}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      )}
     </div>
   );
 }
