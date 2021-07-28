@@ -109,7 +109,7 @@ function EditCourse(props) {
           }}
           encType="multipart/form-data"
         >
-          {/* <TextField
+          <TextField
             variant="outlined"
             required
             fullWidth
@@ -118,39 +118,87 @@ function EditCourse(props) {
             name="name"
             type="text"
             className={classes.textField}
-          /> */}
-          <input
             onChange={handleNameChange}
             value={courseDetail.name}
-            name="name"
-            type="text"
-            placeholder="Enter course name"
-          />
-          <input
-            onChange={handleDescriptionChange}
-            value={courseDetail.description}
-            name="description"
-            type="text"
-            placeholder="Describe your course"
-          />
-          <input name="image" type="file" accept="image/png, image/jpeg" />
-          <input
-            onChange={handleVideoChange}
-            value={courseDetail.video}
-            name="video"
-            type="text"
-            placeholder="https://www.youtube.com/watch?v="
-          />
-          <input
-            onChange={handlePriceChange}
-            value={courseDetail.price}
-            name="price"
-            type="number"
-            placeholder="Enter price"
           />
 
-          <button type="submit">Submit changes</button>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            multiline
+            id="description"
+            label="Course description"
+            name="description"
+            type="text"
+            rows={5}
+            className={classes.textField}
+            onChange={handleDescriptionChange}
+            value={courseDetail.description}
+          />
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="price"
+            label="Price course"
+            name="price"
+            type="number"
+            className={classes.textField}
+            onChange={handlePriceChange}
+            value={courseDetail.price}
+          />
+          <input name="image" type="file" accept="image/png, image/jpeg" />
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="video"
+            label="Video Url ie. : https://www.youtube.com/watch?v="
+            name="video"
+            type="text"
+            className={classes.textField}
+            onChange={handleVideoChange}
+            value={courseDetail.video}
+          />
+
+          <Button
+            style={{ color: "white" }}
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Submit changes
+          </Button>
         </form>
+
+        <Button
+          style={{ color: "white" }}
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="secondary"
+          className={classes.submit}
+          onClick={() => props.onDelete(courseDetail._id)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-trash"
+            viewBox="0 0 16 16"
+          >
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+            <path
+              fillRule="evenodd"
+              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+            />
+          </svg>
+          <span> Delete</span>
+        </Button>
 
         <button onClick={() => props.onDelete(courseDetail._id)}>Delete</button>
       </div>

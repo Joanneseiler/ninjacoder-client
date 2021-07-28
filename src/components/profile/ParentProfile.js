@@ -1,5 +1,5 @@
-import React from 'react';
-import Courses from '../Courses';
+import React from "react";
+import Courses from "../Courses";
 import Avatar from "@material-ui/core/Avatar";
 import {API_URL} from "../../config"
 
@@ -17,13 +17,16 @@ function ParentProfile(props) {
                     </Avatar>
                     <h2>Hello {props.user.username}. 😊</h2>
                     <h3>What course would you like to see today? 🥷 🚀</h3>
-                </div>
-            </div>
-            <div className={props.className}> 
-            <Courses courses={props.courses}></Courses>
-            </div>
-        </div>
-    )
+                    </div>
+                    </div>
+                <div className={props.className}>
+                <Courses
+            currentRole={props.user.role}
+            courses={props.courses}
+        ></Courses>
+      </div>
+    </div>
+  );
 }
 
 export default ParentProfile;

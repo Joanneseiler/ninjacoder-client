@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Courses(props) {
-  const { courses } = props;
+  const { courses, currentRole } = props;
   const [filteredCourses, setFilteredCourses] = useState(courses);
   const classes = useStyles();
   const currentUrl = window.location.pathname;
@@ -123,18 +123,33 @@ function Courses(props) {
                   ></Review>
                 </CardContent>
                 <CardActions className={classes.readMore}>
-                  <Link
-                    to={
-                      currentUrl === "/profile"
-                        ? `/parent/${course._id}`
-                        : `/courses/${course._id}`
-                    }
-                    style={{ textDecoration: "none", textColor: "white" }}
-                  >
-                    <Button size="medium" color="primary">
-                      Read more
-                    </Button>
-                  </Link>
+                  {currentRole === "tutor" ? (
+                    <Link
+                      to={
+                        currentUrl === "/profile"
+                          ? `/courses/${course._id}/edit`
+                          : `/courses/${course._id}`
+                      }
+                      style={{ textDecoration: "none", textColor: "white" }}
+                    >
+                      <Button size="medium" color="primary">
+                        Edit
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link
+                      to={
+                        currentUrl === "/profile"
+                          ? `/parent/${course._id}`
+                          : `/courses/${course._id}`
+                      }
+                      style={{ textDecoration: "none", textColor: "white" }}
+                    >
+                      <Button size="medium" color="primary">
+                        Read more
+                      </Button>
+                    </Link>
+                  )}
                 </CardActions>
               </Card>
             </Grid>

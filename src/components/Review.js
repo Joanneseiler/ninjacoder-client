@@ -20,8 +20,9 @@ export default function SimpleRating(props) {
             withCredentials: true, // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
           }
         );
-        console.log(review);
-        setValue(review.data[0].rate);
+        if (review.data[0]) {
+          setValue(review.data[0].rate);
+        }
       } catch (err) {
         console.log(err);
       }

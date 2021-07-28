@@ -40,8 +40,6 @@ function CourseDetail(props) {
         <li>Description: {courseDetail.description}</li>
         <li>Price: {courseDetail.price}</li>
         <li>Tutor: {courseDetail.tutorId.username} </li>
-
-        <li>Video: {courseDetail.video}</li>
       </ul>
       <Link to={`/courses/${courseDetail._id}/payment`}>Enroll</Link>
     </div>

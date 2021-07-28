@@ -99,17 +99,13 @@ function AddCourse(props) {
             required
             fullWidth
             id="video"
-            label="Video Url : https://www.youtube.com/watch?v="
+            label="Video Url ie. : https://www.youtube.com/watch?v="
             name="video"
             type="text"
             className={classes.textField}
           />
 
           <input name="image" type="file" accept="image/png, image/jpeg" />
-          {/* <Link
-            style={{ textDecoration: "none", color: "white" }}
-            to={"/profile"}
-          > */}
           <Button
             style={{ color: "white" }}
             type="submit"
@@ -120,7 +116,6 @@ function AddCourse(props) {
           >
             Submit course
           </Button>
-          {/* </Link> */}
         </form>
       </div>
     </Container>
