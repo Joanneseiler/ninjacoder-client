@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Alert from "@material-ui/lab/Alert";
 
 import { Link } from "react-router-dom";
 import SignInLogo from "../Login-logo.png";
@@ -15,6 +16,12 @@ import LoadingIndicator from "./LoadingIndicator";
 // import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
   paper: {
     marginTop: theme.spacing(4),
     display: "flex",
@@ -42,11 +49,16 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginTop: theme.spacing(1),
   },
+  img: {
+    width: "40vh",
+    height: "40vh",
+  },
 }));
 
 function EditCourse(props) {
   const classes = useStyles();
   const [courseDetail, setCourseDetail] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -73,12 +85,12 @@ function EditCourse(props) {
 
   const handlePriceChange = (event) => {
     let newPrice = event.target.value;
-    setCourseDetail({ ...courseDetail, price: newPrice });
-  };
-
-  const handleImageChange = (event) => {
-    let newImage = event.target.value;
-    setCourseDetail({ ...courseDetail, image: newImage });
+    if (newPrice < 0 || newPrice > 999) {
+      setErrorMessage("Wrong price!");
+    } else {
+      setCourseDetail({ ...courseDetail, price: newPrice });
+      setErrorMessage(null);
+    }
   };
 
   const handleVideoChange = (event) => {
@@ -104,6 +116,7 @@ function EditCourse(props) {
         <Typography component="h1" variant="h5">
           Edit a course
         </Typography>
+        {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
         <form
           className={classes.form}
           onSubmit={(event) => {
@@ -151,12 +164,13 @@ function EditCourse(props) {
             value={courseDetail.price}
           />
 
-          <input
-            name="image"
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={handleImageChange}
-          />
+          <img
+            className={classes.img}
+            src={courseDetail.image}
+            alt="course"
+          ></img>
+          <input name="image" type="file" accept="image/png, image/jpeg" />
+
           <TextField
             variant="outlined"
             required

@@ -3,7 +3,7 @@ import ParentProfile from "./ParentProfile";
 import TutorProfile from "./TutorProfile";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
-import {API_URL} from "../../config"
+import { API_URL } from "../../config";
 import LoadingIndicator from "../LoadingIndicator";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +26,7 @@ function Profile(props) {
         let userResponse = await axios.get(`${API_URL}/api/user`, {
           withCredentials: true,
         });
+        console.log(userResponse.data);
         setUser(userResponse.data);
       } catch (err) {
         console.log(err);

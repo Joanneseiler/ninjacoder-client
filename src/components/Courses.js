@@ -110,7 +110,12 @@ function Courses(props) {
                     {course.name}
                   </Typography>
 
-                  <Typography>By {course.tutorId.username}</Typography>
+                  <Typography>
+                    By{" "}
+                    {course.tutorId.username
+                      ? course.tutorId.username
+                      : "SuperTutor"}
+                  </Typography>
 
                   <Typography className={classes.price}>
                     {course.price} $
