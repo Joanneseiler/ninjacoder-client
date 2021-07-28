@@ -45,11 +45,16 @@ const useStyles = makeStyles((theme) => ({
 function MenuItems(props) {
   if (!props.user || !props.user.role) {
     return [
-      <MenuItem onClick={props.handleClose}>
+      <MenuItem key="mobileCourses" onClick={props.handleClose}>
       <Link className={props.classes.btn} to="/courses">
         Courses
       </Link>
     </MenuItem>,
+     <MenuItem key="navbarAboutUs" onClick={props.handleClose}>
+     <Link className={props.classes.btn} to="/aboutus">
+       About us
+     </Link>
+   </MenuItem>,
       <MenuItem key="mobileSignIn" onClick={props.handleClose}>
       <Link className={props.classes.btn} to="/signin">
         SignIn
@@ -65,7 +70,7 @@ function MenuItems(props) {
 
   if (props.user.role === 'parent') {
     return [
-      <MenuItem onClick={props.handleClose}>
+      <MenuItem key="mobileCourses" onClick={props.handleClose}>
       <Link className={props.classes.btn} to="/courses">
         Courses
       </Link>
@@ -84,6 +89,11 @@ function MenuItems(props) {
           Account
         </Link>
       </MenuItem>,
+      <MenuItem key="navbarAboutUs" onClick={props.handleClose}>
+      <Link className={props.classes.btn} to="/aboutus">
+        About us
+      </Link>
+    </MenuItem>,
       <MenuItem key="mobileLogout" onClick={props.handleClose}>
         <Link
           className={props.classes.btn}
@@ -123,6 +133,11 @@ function MenuItems(props) {
           Account
         </Link>
       </MenuItem>,
+       <MenuItem key="navbarAboutUs" onClick={props.handleClose}>
+       <Link className={props.classes.btn} to="/aboutus">
+         About us
+       </Link>
+     </MenuItem>,
       <MenuItem key="mobileLogout" onClick={props.handleClose}>
         <Link
           className={props.classes.btn}
