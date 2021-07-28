@@ -36,7 +36,7 @@ export default function SimpleRating(props) {
       feedback: "My feedback",
       courseId: courseId,
     };
-
+    console.log(newReview);
     axios
       .post(`${API_URL}/api/courses/rating`, newReview, {
         withCredentials: true,

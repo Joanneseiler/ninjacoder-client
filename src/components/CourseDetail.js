@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
+import {API_URL} from "../config"
 
 // const useStyles = makeStyles((theme)){
 
@@ -15,7 +16,7 @@ function CourseDetail(props) {
       try {
         let courseId = props.match.params.courseId;
         let response = await axios.get(
-          `http://localhost:5005/api/courses/${courseId}`,
+          `${API_URL}/api/courses/${courseId}`,
           { withCredentials: true }
         );
         setCourseDetail(response.data);

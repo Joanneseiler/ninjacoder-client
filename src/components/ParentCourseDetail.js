@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Review from "./Review";
+import {API_URL} from "../config"
 import ReactPlayer from "react-player";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -12,7 +13,7 @@ function ParentCourseDetail(props) {
       try {
         let courseId = props.match.params.courseId;
         let response = await axios.get(
-          `http://localhost:5005/api/courses/${courseId}`,
+          `${API_URL}/api/courses/${courseId}`,
           { withCredentials: true }
         );
         setCourseDetail(response.data);

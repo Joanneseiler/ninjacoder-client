@@ -14,6 +14,7 @@ import Payment from "./components/Payment";
 import EditCourse from "./components/EditCourse";
 import Account from "./components/profile/Account";
 import ParentCourseDetail from "./components/ParentCourseDetail";
+import {API_URL} from "./config"
 
 function App() {
   let history = useHistory();
@@ -24,7 +25,7 @@ function App() {
   const [fetchingUser, setfetchingUser] = useState(true);
 
   const fetchUser = async () => {
-    let userResponse = await axios.get(`http://localhost:5005/api/user`, {
+    let userResponse = await axios.get(`${API_URL}/api/user`, {
       withCredentials: true,
     });
     setUser(userResponse.data);
@@ -33,7 +34,7 @@ function App() {
   useEffect(() => {
     const getCourses = async () => {
       try {
-        let response = await axios.get("http://localhost:5005/api/courses", {
+        let response = await axios.get(`${API_URL}/api/courses`, {
           withCredentials: true, // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
         });
         setCourses(response.data);
@@ -92,7 +93,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        `http://localhost:5005/api/signup`,
+        `${API_URL}/api/signup`,
         newUser,
         { withCredentials: true }
       );
@@ -112,7 +113,7 @@ function App() {
     };
     try {
       const response = await axios.post(
-        `http://localhost:5005/api/signin`,
+        `${API_URL}/api/signin`,
         submittedUser,
         { withCredentials: true }
       );
@@ -126,7 +127,7 @@ function App() {
   const handleLogOut = async () => {
     try {
       await axios.post(
-        `http://localhost:5005/api/logout`,
+        `${API_URL}/api/logout`,
         {},
         { withCredentials: true }
       );
@@ -145,7 +146,7 @@ function App() {
     formData.append("imageUrl", event.target.image.files[0]);
 
     let imgResponse = await axios.post(
-      "http://localhost:5005/api/upload",
+      `${API_URL}/api/upload`,
       formData,
       { withCredentials: true }
     );
@@ -160,7 +161,7 @@ function App() {
 
     try {
       let courseResponse = await axios.post(
-        "http://localhost:5005/api/tutor/courses/add",
+        `${API_URL}/api/tutor/courses/add`,
         newCourse,
         { withCredentials: true }
       );
@@ -177,7 +178,7 @@ function App() {
     event.preventDefault();
 
     await axios.patch(
-      `http://localhost:5005/api/tutor/courses/${course._id}`,
+      `${API_URL}/api/tutor/courses/${course._id}`,
       course,
       { withCredentials: true }
     );
@@ -199,7 +200,7 @@ function App() {
 
   // Delete
   const handleDeleteCourse = async (courseId) => {
-    await axios.delete(`http://localhost:5005/api/tutor/courses/${courseId}`, {
+    await axios.delete(`${API_URL}/api/tutor/courses/${courseId}`, {
       withCredentials: true,
     });
     let filteredCourses = courses.filter((singleCourse) => {

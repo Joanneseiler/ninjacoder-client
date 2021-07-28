@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Rating from "@material-ui/lab/Rating";
 import axios from "axios";
 import Box from "@material-ui/core/Box";
+import {API_URL} from "../config"
 
 export default function SimpleRating(props) {
   const { isReadOnly, courseDetail } = props;
@@ -13,8 +14,8 @@ export default function SimpleRating(props) {
         const currentPath = window.location.pathname;
         let review = await axios.get(
           currentPath === "/courses"
-            ? `http://localhost:5005/api/courses/${courseDetail._id}/rating`
-            : `http://localhost:5005/api/parent/${courseDetail._id}/rating`,
+            ? `${API_URL}/api/courses/${courseDetail._id}/rating`
+            : `${API_URL}/api/parent/${courseDetail._id}/rating`,
           {
             withCredentials: true, // When sending requests from client-side JavaScript, by default cookies are not passed. So to enable passing of cookies, we need to use this property to true
           }
@@ -38,7 +39,7 @@ export default function SimpleRating(props) {
     };
     console.log(newReview);
     axios
-      .post(`http://localhost:5005/api/courses/rating`, newReview, {
+      .post(`${API_URL}/api/courses/rating`, newReview, {
         withCredentials: true,
       })
       .then((courseUpdated) => console.log(courseUpdated))
