@@ -12,14 +12,15 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     maxWidth: 200,
-    width: "100%",
-    height: "100%",
+    width: 200,
+    height: 200,
     margin: 20,
   },
 }));
 
 function TutorProfile(props) {
   const classes = useStyles();
+  
   if (props.user.profilePic === null || props.user.profilePic === undefined) {
    props.user.profilePic = `${API_URL}/images/Avatar.png`
   }
@@ -34,11 +35,7 @@ function TutorProfile(props) {
           Hi <b>{props.user.username}</b>, super tutor!
         </Typography>
         <Avatar className={classes.avatar}>
-          <img
-            style={{ width: "100%", height: "100%" }}
-            src={props.user.profilePic}
-            alt="profile"
-          />
+          <img src={props.user.profilePic} width='200px' alt="profile" />
         </Avatar>
         <div>
           <Typography className={classes.headline}>

@@ -3,8 +3,25 @@ import Courses from "../Courses";
 import Avatar from "@material-ui/core/Avatar";
 import {API_URL} from "../../config"
 import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+    headline: {
+      marginTop: theme.spacing(2),
+    },
+    avatar: {
+      maxWidth: 200,
+      width: 200,
+      height: 200,
+      margin: 20,
+    },
+  }));
+  
 
 function ParentProfile(props) {
+    const classes = useStyles();
+
     if (props.user.profilePic === null || props.user.profilePic === undefined) {
         props.user.profilePic = `${API_URL}/images/default-ninja.png`
     }
@@ -16,7 +33,7 @@ function ParentProfile(props) {
                 <Typography component="h1" variant="h5">
                     Hello <b>{props.user.username}! 😊</b>
                     </Typography>
-                    <Avatar style={{width:'200px', height:'200px', marginTop: 10, marginBottom: 20}}>
+                    <Avatar className={classes.avatar}>
                         <img src={props.user.profilePic} width='200px' alt="profile" />
                     </Avatar>
                     <Typography style= {{fontSize: 18, marginBottom: 20}} component="h2" variant="h5">

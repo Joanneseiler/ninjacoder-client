@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import ParentProfile from "./ParentProfile";
 import TutorProfile from "./TutorProfile";
 import { makeStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
 import axios from "axios";
+import {API_URL} from "../../config"
 
 const useStyles = makeStyles((theme) => ({
   profile: {
@@ -22,7 +22,7 @@ function Profile(props) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        let userResponse = await axios.get(`http://localhost:5005/api/user`, {
+        let userResponse = await axios.get(`${API_URL}/api/user`, {
           withCredentials: true,
         });
         setUser(userResponse.data);
@@ -36,6 +36,7 @@ function Profile(props) {
   if (!user) {
     return <p>Loading...</p>;
   }
+
   return (
     <>
       {user.role === "parent" ? (
