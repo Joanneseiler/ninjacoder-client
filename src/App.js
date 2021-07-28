@@ -160,7 +160,9 @@ function App() {
         newCourse,
         { withCredentials: true }
       );
-      setCourses([courseResponse.data, ...courses]);
+      console.log(courseResponse.data);
+      setCourses([courseResponse.data, ...courses]); // "courses" Doesn't get updated after adding a course
+      console.log(courses);
       await fetchUser();
       history.push("/profile");
     } catch (err) {
