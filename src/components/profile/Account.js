@@ -53,18 +53,14 @@ const getInitialImage = (props) => {
         return null;
     }
 
+    if (props.user.profilePic !== null) {
+        return props.user.profilePic;
+    }
+
     return getDefaultProfilePicByRole(props);
 }
 
 const getDefaultProfilePicByRole = (props) => {
-    if (props.user === undefined) {
-        return;
-    }
-
-    if (props.user.role === undefined) {
-        return;
-    }
-
     if (props.user.role === 'parent') {
         return `${API_URL}/images/default-ninja.png`
     }
