@@ -1,10 +1,23 @@
 import React from "react"
-import helloNinjaKitty from "../helloNinjaKitty.png"
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+    landingpage: {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      marginTop: 24,
+      textAlign: "center",
+    },
+  }));
+
 
 function LandingPage(){
+    const classes = useStyles()
+    
     return(
         <div>
-           <img src={helloNinjaKitty} alt="NinjaKitty says hello"></img>
+           hello
         </div>
     )
 }
