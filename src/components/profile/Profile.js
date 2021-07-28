@@ -4,6 +4,7 @@ import TutorProfile from "./TutorProfile";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import {API_URL} from "../../config"
+import LoadingIndicator from "../LoadingIndicator";
 
 const useStyles = makeStyles((theme) => ({
   profile: {
@@ -34,7 +35,7 @@ function Profile(props) {
   }, []);
 
   if (!user) {
-    return <p>Loading...</p>;
+    return <LoadingIndicator></LoadingIndicator>;
   }
 
   return (

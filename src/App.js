@@ -14,6 +14,7 @@ import Payment from "./components/Payment";
 import EditCourse from "./components/EditCourse";
 import Account from "./components/profile/Account";
 import ParentCourseDetail from "./components/ParentCourseDetail";
+import LoadingIndicator from "./components/LoadingIndicator";
 import { API_URL } from "./config";
 
 function App() {
@@ -63,9 +64,9 @@ function App() {
     }
   }, [user, history, fetchingUser]);
 
-  if (fetchingUser) {
-    return <p>Loading...</p>;
-  }
+  // if (fetchingUser) {
+  //   return <LoadingIndicator></LoadingIndicator>;
+  // }
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -214,7 +215,9 @@ function App() {
   return (
     <div>
       <NavBar user={user} onLogOut={handleLogOut} />
-      <Switch>
+      {fetchingUser 
+      ? <LoadingIndicator></LoadingIndicator>
+      :       <Switch>
         <Route
           exact
           path={"/"}
@@ -223,7 +226,7 @@ function App() {
           }}
         />
         <Route
-          path="/signin"
+          path="/signin/:role?"
           render={(routeProps) => {
             return (
               <SignInForm
@@ -314,6 +317,7 @@ function App() {
         />
         <Route component={NotFound} />
       </Switch>
+      }
     </div>
   );
 }

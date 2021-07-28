@@ -6,6 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
+import LoadingIndicator from "./LoadingIndicator";
 
 const useStyles = makeStyles((theme) => ({
   coursesparent: {
@@ -36,7 +37,7 @@ function ParentCourseDetail(props) {
   }, []); // if courseDetail is not modified, then do not render the side effect of useEffect, again otherwise infinite loop //https://medium.com/@andrewmyint/infinite-loop-inside-useeffect-react-hooks-6748de62871
 
   if (!courseDetail) {
-    return <p>Loading...Bruh</p>;
+    return <LoadingIndicator></LoadingIndicator>;
   }
   return (
     <div className={classes.coursesparent}>

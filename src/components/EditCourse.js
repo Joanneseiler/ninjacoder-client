@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 
 import { Link } from "react-router-dom";
 import SignInLogo from "../Login-logo.png";
+import LoadingIndicator from "./LoadingIndicator";
 
 // import { Link } from "react-router-dom";
 
@@ -86,7 +87,7 @@ function EditCourse(props) {
   };
 
   if (!courseDetail) {
-    return <p>Loading...</p>;
+    return <LoadingIndicator></LoadingIndicator>;
   }
 
   const { onEditCourse } = props;

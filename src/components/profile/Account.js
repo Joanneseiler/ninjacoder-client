@@ -11,6 +11,7 @@ import Avatar from "@material-ui/core/Avatar";
 import axios from "axios";
 import { Redirect, useHistory } from "react-router-dom";
 import { API_URL } from "../../config";
+import LoadingIndicator from "../LoadingIndicator";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -242,7 +243,7 @@ function Account(props) {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <LoadingIndicator></LoadingIndicator>;
   }
 
   return (

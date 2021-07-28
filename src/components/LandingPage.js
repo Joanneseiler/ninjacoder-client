@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-function LandingPage(){
+function LandingPage() {
     const classes = useStyles()
 
     return(
@@ -54,7 +54,7 @@ function LandingPage(){
                     </Typography>
                     <Container className={classes.landingpage}>
                     <Link className={classes.landingButton}
-                        to="/signin">
+                        to={`/signin/parent`}>
                             <Button
                                 fullWidth
                                 variant="contained"
@@ -64,7 +64,7 @@ function LandingPage(){
                             </Button>
                         </Link>
                         <Link className={classes.landingButton}
-                        to="/signin">
+                        to="/signin/tutor">
                             <Button
                                 fullWidth
                                 variant="contained"

@@ -14,6 +14,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import LoadingIndicator from "./LoadingIndicator";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -73,7 +74,7 @@ function CourseDetail(props) {
   }, []); // if courseDetail is not modified, then do not render the side effect of useEffect, again otherwise infinite loop //https://medium.com/@andrewmyint/infinite-loop-inside-useeffect-react-hooks-6748de62871
 
   if (!courseDetail) {
-    return <p>Loading...Bruh</p>;
+    return <LoadingIndicator></LoadingIndicator>;
   }
   return (
     <>

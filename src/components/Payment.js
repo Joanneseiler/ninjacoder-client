@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {API_URL} from "../config"
+import LoadingIndicator from "./LoadingIndicator";
 
 function Payment(props) {
   const [payment, setPayment] = useState(null);
@@ -24,7 +25,7 @@ function Payment(props) {
   }, []);
 
   if (!payment) {
-    return <p>Loading...</p>;
+    return <LoadingIndicator></LoadingIndicator>;
   }
   return <div>{payment.message}</div>;
 }

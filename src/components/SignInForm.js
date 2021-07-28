@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SignInForm(props) {
-  const [role, setRole] = useState("")
+  const [role, setRole] = useState(props.match.params.role ?? "")
   const classes = useStyles();
   const handleSelect = (event) => {
     setRole(event.target.value)
