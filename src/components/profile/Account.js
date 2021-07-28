@@ -54,7 +54,7 @@ const getInitialImage = (props) => {
     return null;
   }
 
-  if (props.user.profilePic !== null) {
+  if (props.user.profilePic) {
     return props.user.profilePic;
   }
 

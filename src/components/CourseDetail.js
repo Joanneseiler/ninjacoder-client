@@ -54,6 +54,14 @@ const useStyles = makeStyles((theme) => ({
   readMore: { display: "flex", justifyContent: "flex-end" },
 }));
 
+function EnrollLink(props) {
+  if (!props.user || !props.user.role || props.user.role !== 'parent') {
+    return [];
+  }
+
+  return <Link to={`/courses/${props.id}/payment`}>Enroll</Link>
+}
+
 function CourseDetail(props) {
   const [courseDetail, setCourseDetail] = useState(null);
   const classes = useStyles();
@@ -92,8 +100,7 @@ function CourseDetail(props) {
             </Typography>
             <Typography>{courseDetail.price} $</Typography>
             <Typography>By {courseDetail.tutorId.username}</Typography>
-
-            <Link to={`/courses/${courseDetail._id}/payment`}>Enroll</Link>
+            <EnrollLink id={courseDetail._id} user={props.user}></EnrollLink>
           </Card>
         </Grid>
       </Container>

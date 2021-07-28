@@ -16,6 +16,7 @@ import Account from "./components/profile/Account";
 import ParentCourseDetail from "./components/ParentCourseDetail";
 import LoadingIndicator from "./components/LoadingIndicator";
 import { API_URL } from "./config";
+import AboutUs from "./components/AboutUs"
 
 function App() {
   let history = useHistory();
@@ -51,7 +52,7 @@ function App() {
 
   useEffect(() => {
     if (
-      (history.location.pathname === "/signin" ||
+      (history.location.pathname.startsWith("/signin")  ||
         history.location.pathname === "/signup") &&
       user
     ) {
@@ -222,7 +223,7 @@ function App() {
           exact
           path={"/"}
           render={() => {
-            return <LandingPage />;
+            return <LandingPage user={user} />;
           }}
         />
         <Route
@@ -274,6 +275,12 @@ function App() {
             return <AddCourse onAddCourse={handleAddCourse} />;
           }}
         />
+         <Route
+          path={"/aboutus"}
+          render={() => {
+            return <AboutUs/>
+          }}
+        />
         <Route
           exact
           path={"/parent/:courseId"}
@@ -292,7 +299,7 @@ function App() {
           exact
           path={"/courses/:courseId"}
           render={(routeProps) => {
-            return <CourseDetail {...routeProps} />;
+            return <CourseDetail user={user} {...routeProps} />;
           }}
         />
         <Route

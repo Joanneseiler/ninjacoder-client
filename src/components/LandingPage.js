@@ -1,7 +1,7 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Container, Button, Grid } from "@material-ui/core";
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import NinjaKittyLP from "../LandingPageNinja.png"
 
 const useStyles = makeStyles((theme) => ({
@@ -9,14 +9,15 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
-      textAlign: "center"
+      textAlign: "center",
     },
     landingHeadline: {
-        backgroundColor: "#FAF3DD",
+        backgroundColor: "#FAF3DD"
     },
     landingHeader: {
-        fontSize: 60,
-        marginTop: 5
+        fontSize: 80,
+        marginTop: 5,
+        fontFamily: "Lemonade Stand"
     },
     landingHeaderP: {
         fontSize: 20,
@@ -36,10 +37,15 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-function LandingPage() {
+function LandingPage(props) {
     const classes = useStyles()
 
+    if (props.user) {
+        return <Redirect to={"/profile"}></Redirect>;
+    }
+    
     return(
+
         <div className={classes.landingHeadline}>
             <Container  className={classes.landingpage}>
                 <Grid>
@@ -53,7 +59,7 @@ function LandingPage() {
                     Programming courses that playfully help your child to be equipped for a successful life
                     </Typography>
                     <Container className={classes.landingpage}>
-                    <Link className={classes.landingButton}
+                        <Link className={classes.landingButton}
                         to={`/signin/parent`}>
                             <Button
                                 fullWidth
