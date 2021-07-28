@@ -14,7 +14,7 @@ import Payment from "./components/Payment";
 import EditCourse from "./components/EditCourse";
 import Account from "./components/profile/Account";
 import ParentCourseDetail from "./components/ParentCourseDetail";
-import {API_URL} from "./config"
+import { API_URL } from "./config";
 
 function App() {
   let history = useHistory();
@@ -92,11 +92,9 @@ function App() {
     }
 
     try {
-      const response = await axios.post(
-        `${API_URL}/api/signup`,
-        newUser,
-        { withCredentials: true }
-      );
+      const response = await axios.post(`${API_URL}/api/signup`, newUser, {
+        withCredentials: true,
+      });
       setUser(response.data);
       setSignUpError(null);
     } catch (err) {
@@ -128,11 +126,7 @@ function App() {
 
   const handleLogOut = async () => {
     try {
-      await axios.post(
-        `${API_URL}/api/logout`,
-        {},
-        { withCredentials: true }
-      );
+      await axios.post(`${API_URL}/api/logout`, {}, { withCredentials: true });
       setUser(null);
       history.push("/");
     } catch {
@@ -147,11 +141,9 @@ function App() {
     let formData = new FormData();
     formData.append("imageUrl", event.target.image.files[0]);
 
-    let imgResponse = await axios.post(
-      `${API_URL}/api/upload`,
-      formData,
-      { withCredentials: true }
-    );
+    let imgResponse = await axios.post(`${API_URL}/api/upload`, formData, {
+      withCredentials: true,
+    });
 
     let newCourse = {
       name: event.target.name.value,
@@ -179,22 +171,29 @@ function App() {
   const handleEditCourse = async (event, course) => {
     event.preventDefault();
 
-    await axios.patch(
-      `${API_URL}/api/tutor/courses/${course._id}`,
-      course,
-      { withCredentials: true }
-    );
+    let formData = new FormData();
+    formData.append("imageUrl", event.target.image.files[0]);
+
+    let imgResponse = await axios.post(`${API_URL}/api/upload`, formData, {
+      withCredentials: true,
+    });
+
+    await axios.patch(`${API_URL}/api/tutor/courses/${course._id}`, course, {
+      withCredentials: true,
+    });
     try {
       let updatedCourse = courses.map((singleCourse) => {
         if (singleCourse._id === course._id) {
           singleCourse.name = course.name;
           singleCourse.description = course.description;
+          singleCourse.image = imgResponse.data.image;
           singleCourse.video = course.video;
           singleCourse.price = course.price;
         }
         return singleCourse;
       });
       setCourses(updatedCourse);
+      history.push("/profile");
     } catch (err) {
       console.log(err.response.data.error); //error to be common
     }
@@ -209,6 +208,7 @@ function App() {
       return singleCourse._id !== courseId;
     });
     setCourses(filteredCourses);
+    history.push("/profile");
   };
 
   return (

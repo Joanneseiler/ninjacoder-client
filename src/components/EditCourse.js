@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {API_URL} from "../config"
+import { API_URL } from "../config";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 0),
   },
   formControl: {
     minWidth: 120,
@@ -51,9 +51,7 @@ function EditCourse(props) {
     const getData = async () => {
       try {
         let courseId = props.match.params.courseId;
-        let response = await axios.get(
-          `${API_URL}/api/courses/${courseId}`
-        );
+        let response = await axios.get(`${API_URL}/api/courses/${courseId}`);
         setCourseDetail(response.data);
       } catch (err) {
         console.log("Course fetch failed", err);
@@ -77,7 +75,10 @@ function EditCourse(props) {
     setCourseDetail({ ...courseDetail, price: newPrice });
   };
 
-  //const img TODO
+  const handleImageChange = (event) => {
+    let newImage = event.target.value;
+    setCourseDetail({ ...courseDetail, image: newImage });
+  };
 
   const handleVideoChange = (event) => {
     let newVideo = event.target.value;
@@ -148,7 +149,13 @@ function EditCourse(props) {
             onChange={handlePriceChange}
             value={courseDetail.price}
           />
-          <input name="image" type="file" accept="image/png, image/jpeg" />
+
+          <input
+            name="image"
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={handleImageChange}
+          />
           <TextField
             variant="outlined"
             required
@@ -199,8 +206,6 @@ function EditCourse(props) {
           </svg>
           <span> Delete</span>
         </Button>
-
-        <button onClick={() => props.onDelete(courseDetail._id)}>Delete</button>
       </div>
     </Container>
   );

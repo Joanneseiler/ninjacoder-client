@@ -1,24 +1,69 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
-import {API_URL} from "../config"
+import { Box, makeStyles } from "@material-ui/core";
+import { API_URL } from "../config";
+import Review from "./Review";
 
-// const useStyles = makeStyles((theme)){
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 
-// }
+const useStyles = makeStyles((theme) => ({
+  cardGrid: {
+    paddingTop: theme.spacing(5),
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    marginTop: 40,
+    padding: 10,
+    textAlign: "center",
+  },
+  card: {
+    minHeight: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  cardMedia: {
+    height: "auto",
+    paddingTop: "58.25%",
+    width: "100%",
+
+    // 16:9
+  },
+  cardContent: {
+    height: 200,
+  },
+  title: {
+    fontWeight: "bold",
+    color: "light",
+  },
+  price: {
+    textSecondary: "main",
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  stars: {},
+  readMore: { display: "flex", justifyContent: "flex-end" },
+}));
 
 function CourseDetail(props) {
   const [courseDetail, setCourseDetail] = useState(null);
+  const classes = useStyles();
 
   useEffect(() => {
     const getData = async () => {
       try {
         let courseId = props.match.params.courseId;
-        let response = await axios.get(
-          `${API_URL}/api/courses/${courseId}`,
-          { withCredentials: true }
-        );
+        let response = await axios.get(`${API_URL}/api/courses/${courseId}`, {
+          withCredentials: true,
+        });
         setCourseDetail(response.data);
       } catch (err) {
         console.log(err);
@@ -31,18 +76,27 @@ function CourseDetail(props) {
     return <p>Loading...Bruh</p>;
   }
   return (
-    <div>
-      <ul>
-        <li>
-          <img src={courseDetail.image} alt="course"></img>
-        </li>
-        <li>Name: {courseDetail.name}</li>
-        <li>Description: {courseDetail.description}</li>
-        <li>Price: {courseDetail.price}</li>
-        <li>Tutor: {courseDetail.tutorId.username} </li>
-      </ul>
-      <Link to={`/courses/${courseDetail._id}/payment`}>Enroll</Link>
-    </div>
+    <>
+      <CssBaseline />
+      <Container className={classes.cardGrid} maxWidth="md">
+        <Grid xs={12} sm={6} md={4}>
+          <Card className={classes.card}>
+            <img src={courseDetail.image} alt="course"></img>
+            <Typography className={classes.title}>
+              {" "}
+              {courseDetail.name}
+            </Typography>
+            <Typography>
+              <Box>{courseDetail.description}</Box>
+            </Typography>
+            <Typography>{courseDetail.price} $</Typography>
+            <Typography>By {courseDetail.tutorId.username}</Typography>
+
+            <Link to={`/courses/${courseDetail._id}/payment`}>Enroll</Link>
+          </Card>
+        </Grid>
+      </Container>
+    </>
   );
 }
 
