@@ -3,7 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Container, Button, Grid, Avatar } from "@material-ui/core";
 import { Link, Redirect } from "react-router-dom"
 import NinjaKittyLP from "../LandingPageNinja.png"
-import flow3 from "../3.jpeg"
+import flow1 from "../landing-images/1.jpg"
+import flow2 from "../landing-images/2.jpeg"
+import flow3 from "../landing-images/3.jpeg"
 import ReviewCarousel from "./ReviewCarousel";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
         width: 200,
         height: 200,
         margin: 20,
+        border: "solid black 1px"
       },
       flow: {
         display: "flex",
@@ -122,7 +125,7 @@ function LandingPage(props) {
                 <Container className={classes.flow}>
                 <div className={classes.divFlow}>
                 <Avatar className={classes.avatar}>
-                    <img src={flow3} width='200px' alt="info" />
+                    <img src={flow1} width='200px' alt="info" />
                 </Avatar>
                 <Typography className={classes.landingHeaderP} component="h2" variant="h5">
                 To start, you can test whether your child enjoys coding with our free videos
@@ -130,7 +133,7 @@ function LandingPage(props) {
                 </div>
                 <div className={classes.divFlow}>
                 <Avatar className={classes.avatar}>
-                    <img src={flow3} width='200px' alt="info" />
+                    <img src={flow2} width='200px' alt="info" />
                 </Avatar>
                 <Typography className={classes.landingHeaderP} component="h2" variant="h5">
                 After that you can benefit from our great tutors and buy courses for your child
