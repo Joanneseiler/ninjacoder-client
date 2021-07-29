@@ -57,6 +57,7 @@ function CheckoutForm(props) {
       },
     },
   };
+
   const handleChange = async (event) => {
     // Listen for changes in the CardElement
     // and display any errors as the customer types their card details

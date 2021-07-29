@@ -7,9 +7,16 @@ function SearchBar(props) {
   const { onSearch } = props;
 
   return (
-    <div style={{display: "flex", flexDirection: "row", justifyContent: "center", marginTop: 20}}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        marginTop: 40,
+      }}
+    >
       <div>
-          <TextField style={{borderRadius: 20, width: "100%", maxWidth: 240}}
+          <TextField style={{borderRadius: 20, width: "40ch"}}
             onChange={onSearch}
             id="standard-basic"
             label="Search a course"
@@ -23,9 +30,6 @@ function SearchBar(props) {
             }}
           />
       </div>
-      {/* <div style={{paddingTop: 20}}>
-          <SearchIcon/>
-      </div> */}
     </div>
   );
 }

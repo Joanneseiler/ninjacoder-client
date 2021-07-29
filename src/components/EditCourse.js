@@ -8,12 +8,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
-
 import { Link } from "react-router-dom";
 import SignInLogo from "../Login-logo.png";
 import LoadingIndicator from "./LoadingIndicator";
 
-// import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 0),
+    marginBottom: theme.spacing(1),
   },
   formControl: {
     minWidth: 120,
@@ -52,7 +51,12 @@ const useStyles = makeStyles((theme) => ({
   img: {
     width: "40vh",
     height: "40vh",
+    marginTop: theme.spacing(3),
   },
+  inputImg: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2)
+   },
 }));
 
 function EditCourse(props) {
@@ -171,7 +175,12 @@ function EditCourse(props) {
             src={courseDetail.image}
             alt="course"
           ></img>
-          <input style={{marginTop: 20, marginBottom: 20}} name="image" type="file" accept="image/png, image/jpeg" />
+          <input
+            className={classes.inputImg}
+            name="image"
+            type="file"
+            accept="image/png, image/jpeg"
+          />
 
           <TextField
             variant="outlined"
