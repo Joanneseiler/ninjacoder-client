@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Container, Grid, Avatar } from "@material-ui/core";
 import StockImageCarousel from "./ImageCarousel";
 import Joanne from "../JS.jpg"
+import Anja from "../AR.jpeg"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -10,7 +11,9 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
-      textAlign: "center"
+      textAlign: "center",
+      width: "100%",
+      maxWidth: 720
     },
     aboutUsHeadline: {
         backgroundColor: "#C8D5B9",
@@ -29,16 +32,19 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 40,
         width: "50%"
     },
-    imageCarousel: {
+    imageCarouselContainer: {
         padding: 30,
         marginTop: 40,
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        textAlign: "center"
+        textAlign: "center",
+    },
+    imageCarousel: {
+        maxWidth: 720
     },
     aboutUsFooter: {
-        backgroundColor: "#68B0AB"
+        backgroundColor: "#C8D5B9"
     },
     avatar: {
         maxWidth: 200,
@@ -58,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
         padding: 20,
         textAlign: "center",
       },
+      
   }));
 
 
@@ -86,15 +93,17 @@ function AboutUs() {
                 </Grid>
             </Container>
         </div>
-        <div  className={classes.imageCarousel}>
+        <div className={classes.imageCarouselContainer}>
+        <div className={classes.imageCarousel}>
             <StockImageCarousel></StockImageCarousel>
             <Typography className={classes.aboutUsHeaderP} component="h2" variant="h5">
             Kids are having an incredible amount of fun learning with us.
             </Typography>
         </div>
+        </div>
         <div className={classes.aboutUsFooter}>
-            <Container  className={classes.aboutUsPage}>
-                <Grid>
+            <Container className={classes.aboutUsPage}>
+                <Grid style={{width: "100%"}}>
               
                     <Typography className={classes.aboutUsHeader} component="h1" variant="h5">
                     About Us
@@ -102,7 +111,7 @@ function AboutUs() {
                     <Container className={classes.flow}>
                     <div className={classes.divFlow}>
                 <Avatar className={classes.avatar}>
-                    <img src="" width='200px' alt="Anja" />
+                    <img src={Anja} width='200px' alt="Anja" />
                 </Avatar>
                 <Typography className={classes.landingHeaderP} component="h2" variant="h5">
                 Anja Ramihone

@@ -56,10 +56,13 @@ const useStyles = makeStyles((theme) => ({
         padding: 20
       },
       landingReview: {
-        backgroundColor: "#68B0AB"
+        backgroundColor: "#68B0AB",
+        display: "flex",
+        justifyContent: "center"
       },
       reviews: {
-          padding: 40
+          padding: 40,
+          width: 350
       }
   }));
 
@@ -113,7 +116,7 @@ function LandingPage(props) {
         </div>
         <div >
             <Container className={classes.landingpage}>
-                <Typography className={classes.landingHeaderP} component="h2" variant="h5">
+                <Typography style={{fontFamily: "Lemonade Stand", fontSize: 30}} className={classes.landingHeaderP} component="h2" variant="h5">
                     Your child will love learning to code with us!
                 </Typography>
                 <Container className={classes.flow}>
@@ -145,8 +148,7 @@ function LandingPage(props) {
             </Container>
             <div className={classes.landingReview}>
             <div className={classes.reviews}>
-            Test
-                {/* <ReviewCarousel/> */}
+                <ReviewCarousel/>
                 </div>
             </div>
         </div>
