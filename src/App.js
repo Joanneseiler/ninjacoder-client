@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./App.css"
 import { Switch, Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import NotFound from "./components/NotFound";
