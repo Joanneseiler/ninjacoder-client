@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 function TutorProfile(props) {
   const classes = useStyles();
-  
+
   if (props.user.profilePic === null || props.user.profilePic === undefined) {
     props.user.profilePic = `${API_URL}/images/Avatar.png`;
   }
@@ -32,10 +32,10 @@ function TutorProfile(props) {
         className={props.className}
       >
         <Typography component="h1" className={classes.headline} variant="h5">
-          Hi <b>{props.user.username}</b>, super tutor!
+          Hi <b>{props.user.username}</b>, Super Tutor!
         </Typography>
         <Avatar className={classes.avatar}>
-          <img src={props.user.profilePic} width='200px' alt="profile" />
+          <img src={props.user.profilePic} width="200px" alt="profile" />
         </Avatar>
         <div>
           <Typography className={classes.headline}>
