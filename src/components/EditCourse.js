@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 0),
+    marginBottom: theme.spacing(1),
   },
   formControl: {
     minWidth: 120,
@@ -52,7 +53,9 @@ const useStyles = makeStyles((theme) => ({
   img: {
     width: "40vh",
     height: "40vh",
+    marginTop: theme.spacing(3),
   },
+  inputImg: { marginBottom: theme.spacing(2) },
 }));
 
 function EditCourse(props) {
@@ -171,7 +174,12 @@ function EditCourse(props) {
             src={courseDetail.image}
             alt="course"
           ></img>
-          <input name="image" type="file" accept="image/png, image/jpeg" />
+          <input
+            className={classes.inputImg}
+            name="image"
+            type="file"
+            accept="image/png, image/jpeg"
+          />
 
           <TextField
             variant="outlined"
