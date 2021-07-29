@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginTop: theme.spacing(1),
   },
+  inputImg: { marginTop: theme.spacing(2), marginBottom: theme.spacing(1) },
 }));
 
 function AddCourse(props) {
@@ -92,6 +93,13 @@ function AddCourse(props) {
             type="number"
             className={classes.textField}
           />
+
+          <input
+            className={classes.inputImg}
+            name="image"
+            type="file"
+            accept="image/png, image/jpeg"
+          />
           <TextField
             variant="outlined"
             required
@@ -102,8 +110,6 @@ function AddCourse(props) {
             type="text"
             className={classes.textField}
           />
-
-          <input name="image" type="file" accept="image/png, image/jpeg" />
           <Button
             style={{ color: "white" }}
             type="submit"
