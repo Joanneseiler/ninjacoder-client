@@ -31,6 +31,9 @@
 .result-message {
   line-height: 22px;
   font-size: 16px;
+  text-align: center;
+  color: green;
+  font-weight: 500;
 }
 
 .result-message a {
@@ -67,7 +70,7 @@
 
 /* Buttons and links */
 .button-stripe {
-  background: #5469d4;
+  background: #8fc0a9;
   font-family: Arial, sans-serif;
   color: #ffffff;
   border-radius: 0 0 4px 4px;
@@ -121,7 +124,7 @@
 .spinner:before {
   width: 10.4px;
   height: 20.4px;
-  background: #5469d4;
+  background: #006064;
   border-radius: 20.4px 0 0 20.4px;
   top: -0.2px;
   left: -0.2px;
