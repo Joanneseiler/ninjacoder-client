@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     marginTop: 24,
   },
+  image: {},
 }));
 
 function ParentCourseDetail(props) {
@@ -41,7 +42,7 @@ function ParentCourseDetail(props) {
   }
   return (
     <div className={classes.coursesparent}>
-      <ReactPlayer url={courseDetail.video} />
+      <ReactPlayer light url={courseDetail.video} />
       <Typography gutterBottom variant="h4" component="h2">
         {courseDetail.name}
       </Typography>

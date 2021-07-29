@@ -12,7 +12,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -118,7 +117,7 @@ function Courses(props) {
                   </Typography>
 
                   <Typography className={classes.price}>
-                    {course.price} $
+                    {course.price <= 0 ? "Free" : `${course.price}$`}
                   </Typography>
                   <Review
                     className={classes.stars}

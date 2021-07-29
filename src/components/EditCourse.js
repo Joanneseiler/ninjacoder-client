@@ -64,7 +64,9 @@ function EditCourse(props) {
     const getData = async () => {
       try {
         let courseId = props.match.params.courseId;
-        let response = await axios.get(`${API_URL}/api/courses/${courseId}`);
+        let response = await axios.get(`${API_URL}/api/courses/${courseId}`, {
+          withCredentials: true,
+        });
         setCourseDetail(response.data);
       } catch (err) {
         console.log("Course fetch failed", err);
