@@ -1,7 +1,6 @@
 import React from "react";
 import Courses from "../Courses";
 import Avatar from "@material-ui/core/Avatar";
-import envelope from "../../envelope-solid.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import { API_URL } from "../../config";

@@ -5,24 +5,35 @@ import ReactPlayer from "react-player";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography, Container, Grid } from "@material-ui/core";
 import CheckIcon from '@material-ui/icons/Check'
 import LoadingIndicator from "./LoadingIndicator";
+import CourseNinjaKitty from "../CourseNinjaKitty.png"
 
 const useStyles = makeStyles((theme) => ({
   coursesparent: {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    marginTop: 24,
+    textAlign: "center"
   },
   image: {},
   videoContainer: {
-    marginBottom: 16
+    marginBottom: 16,
+    padding: 20
   },
   finishLink: {
     textDecoration: "none"
-  }
+  },
+  courseNinjaImageKitty: {
+    width: "400px",
+    paddingLeft: 30
+  },
+  coursesparentImageDiv: {
+    display: "flex",
+    marginTop: 24,
+    justifyContent: "flex-end"
+  },
 }));
 
 function ParentCourseDetail(props) {
@@ -48,6 +59,9 @@ function ParentCourseDetail(props) {
     return <LoadingIndicator></LoadingIndicator>;
   }
   return (
+    <div style={{backgroundColor: "#FAF3DD", margin: 0, paddingBottom: 80}}>
+    <Container>
+    <Grid>
     <div className={classes.coursesparent}>
       <div className={classes.videoContainer} style={{maxWidth: 640, width: "100%"}}>
         <ReactPlayer width="100%" light url={courseDetail.video} />
@@ -74,6 +88,17 @@ function ParentCourseDetail(props) {
           Finished
         </Button>
     </Link>
+    </div>
+    <div className={classes.coursesparentImageDiv}>
+    <img 
+    src={CourseNinjaKitty} 
+    alt="happy ninjakitty"
+    className={classes.courseNinjaImageKitty}
+    >
+    </img>
+    </div>
+    </Grid>
+    </Container>
     </div>
   );
 }
