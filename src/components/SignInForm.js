@@ -13,6 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import {Link} from "react-router-dom";
 import FormError from './FormError';
 import SignInLogo from "../Login-logo.png"
+import CheckIcon from '@material-ui/icons/Check'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -55,6 +56,7 @@ function SignInForm(props) {
   }
 
   return (
+    <>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -106,6 +108,7 @@ function SignInForm(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
+            startIcon={<CheckIcon />}
           >
             Sign In
           </Button>
@@ -121,6 +124,7 @@ function SignInForm(props) {
         </form>
       </div>
     </Container>
+    </>
   );
 }
 

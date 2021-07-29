@@ -37,12 +37,6 @@ function TutorProfile(props) {
         <Avatar className={classes.avatar}>
           <img src={props.user.profilePic} width="200px" alt="profile" />
         </Avatar>
-        <div>
-          <Typography className={classes.headline}>
-            <img src={envelope} alt="envelope" style={{ width: 15 }} />
-            <span style={{ marginLeft: 10 }}>{props.user.email}</span>
-          </Typography>
-        </div>
       </div>
       <div>
         <Courses

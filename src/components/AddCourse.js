@@ -102,8 +102,7 @@ function AddCourse(props) {
             type="text"
             className={classes.textField}
           />
-
-          <input name="image" type="file" accept="image/png, image/jpeg" />
+          <input style={{marginTop: 20}} name="image" type="file" accept="image/png, image/jpeg" />
           <Button
             style={{ color: "white" }}
             type="submit"

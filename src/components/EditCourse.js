@@ -171,7 +171,7 @@ function EditCourse(props) {
             src={courseDetail.image}
             alt="course"
           ></img>
-          <input name="image" type="file" accept="image/png, image/jpeg" />
+          <input style={{marginTop: 20, marginBottom: 20}} name="image" type="file" accept="image/png, image/jpeg" />
 
           <TextField
             variant="outlined"

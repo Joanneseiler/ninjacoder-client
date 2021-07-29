@@ -26,7 +26,6 @@ function Profile(props) {
         let userResponse = await axios.get(`${API_URL}/api/user`, {
           withCredentials: true,
         });
-        console.log(userResponse.data);
         setUser(userResponse.data);
       } catch (err) {
         console.log(err);

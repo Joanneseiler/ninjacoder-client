@@ -13,6 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import {Link} from "react-router-dom";
 import FormError from './FormError';
 import SignInLogo from "../Login-logo.png"
+import CheckIcon from '@material-ui/icons/Check'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -152,6 +153,7 @@ function SignUpForm(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
+            startIcon={<CheckIcon />}
           >
             Sign Up
           </Button>

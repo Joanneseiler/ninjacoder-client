@@ -46,6 +46,7 @@ function ParentProfile(props) {
                     </Typography>
         <div>
             <Courses
+            user={props.user}
             currentRole={props.user.role}
             courses={props.courses}>
             </Courses>

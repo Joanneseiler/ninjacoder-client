@@ -66,6 +66,36 @@ const useStyles = makeStyles((theme) => ({
   readMore: { display: "flex", justifyContent: "flex-end" },
 }));
 
+function CardAction(props) {
+  if (!props.currentRole) {
+    return []
+  }
+
+  if (props.currentRole === 'tutor') {
+    return <Link
+      to={
+        props.currentUrl === "/profile"
+          ? `/courses/${props.course._id}/edit`
+          : `/courses/${props.course._id}`
+      }
+      style={{ textDecoration: "none", textColor: "white" }}
+    >
+      <Button size="medium" color="primary">
+        {props.currentUrl === "/profile" ? "Edit" : "Read more"}
+      </Button>
+    </Link>
+  }
+
+  return <Link
+    to={`/parent/${props.course._id}`}
+    style={{ textDecoration: "none", textColor: "white" }}
+  >
+    <Button size="medium" color="primary">
+      Read more
+    </Button>
+  </Link>
+}
+
 function Courses(props) {
   const { courses, currentRole } = props;
   const [filteredCourses, setFilteredCourses] = useState(courses);
@@ -126,33 +156,7 @@ function Courses(props) {
                   ></Review>
                 </CardContent>
                 <CardActions className={classes.readMore}>
-                  {currentRole === "tutor" ? (
-                    <Link
-                      to={
-                        currentUrl === "/profile"
-                          ? `/courses/${course._id}/edit`
-                          : `/courses/${course._id}`
-                      }
-                      style={{ textDecoration: "none", textColor: "white" }}
-                    >
-                      <Button size="medium" color="primary">
-                        Edit
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Link
-                      to={
-                        currentUrl === "/profile"
-                          ? `/parent/${course._id}`
-                          : `/courses/${course._id}`
-                      }
-                      style={{ textDecoration: "none", textColor: "white" }}
-                    >
-                      <Button size="medium" color="primary">
-                        Read more
-                      </Button>
-                    </Link>
-                  )}
+                  <CardAction course={course} currentUrl={currentUrl} currentRole={currentRole} {...props}></CardAction>
                 </CardActions>
               </Card>
             </Grid>

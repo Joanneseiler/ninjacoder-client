@@ -308,7 +308,7 @@ function App() {
             exact
             path={"/courses"}
             render={() => {
-              return <Courses courses={courses} />;
+              return <Courses currentRole={(user && user.role) ? user.role : null} courses={courses} />;
             }}
           />
           <Route

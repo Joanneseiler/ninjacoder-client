@@ -5,7 +5,8 @@ import ReactPlayer from "react-player";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
+import CheckIcon from '@material-ui/icons/Check'
 import LoadingIndicator from "./LoadingIndicator";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +17,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 24,
   },
   image: {},
+  videoContainer: {
+    marginBottom: 16
+  },
+  finishLink: {
+    textDecoration: "none"
+  }
 }));
 
 function ParentCourseDetail(props) {
@@ -42,16 +49,31 @@ function ParentCourseDetail(props) {
   }
   return (
     <div className={classes.coursesparent}>
-      <ReactPlayer light url={courseDetail.video} />
+      <div className={classes.videoContainer} style={{maxWidth: 640, width: "100%"}}>
+        <ReactPlayer width="100%" light url={courseDetail.video} />
+      </div>
       <Typography gutterBottom variant="h4" component="h2">
         {courseDetail.name}
       </Typography>
-      <Typography gutterBottom variant="h6" component="h2">
+      <Typography gutterBottom>
         {courseDetail.description}
       </Typography>{" "}
-      <Typography>By {courseDetail.tutorId.username}</Typography>
+      {/* <Typography>By {courseDetail.tutorId.username}</Typography> */}
+      <Typography>
+        Created by <a href={`mailto:${courseDetail.tutorId.email}`}>{courseDetail.tutorId.username}</a>
+      </Typography>
       <Review courseDetail={courseDetail}></Review>
-      <Link to={"/profile"}>Finished!</Link>
+      <Link className={classes.finishLink} to={"/profile"}>
+        <Button
+              style={{color: "white"}}
+              fullWidth
+              variant="contained"
+              color="primary"
+              startIcon={<CheckIcon />}
+        >
+          Finished
+        </Button>
+    </Link>
     </div>
   );
 }

@@ -4,7 +4,8 @@ import { Typography, Container, Grid, Avatar } from "@material-ui/core";
 import StockImageCarousel from "./ImageCarousel";
 import Joanne from "../JS.jpg"
 import Anja from "../AR.jpeg"
-
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 const useStyles = makeStyles((theme) => ({
     aboutUsPage: {
@@ -64,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
         padding: 20,
         textAlign: "center",
       },
+      link: {
+          color: "black"
+      }
       
   }));
 
@@ -84,10 +88,10 @@ function AboutUs() {
                     We don't know what the future holds, but one thing is clear: digitization will continue to advance and become increasingly important in the future.
                     </Typography>
                     <Typography className={classes.aboutUsHeaderP} component="h4" variant="h5">
-                    If you are a teacher with technical skills or a (hobby) developer, then you are very welcome to register on our site and upload videos in which you explain to children how to code, how they can playfully learn to code with existing websites or how the computer and the internet work. 
+                    <b>If you are a teacher</b> with technical skills or a (hobby) developer, then you are very welcome to register on our site and upload videos in which you explain to children how to code, how they can playfully learn to code with existing websites or how the computer and the internet work. 
                     </Typography>
                     <Typography style={{marginBottom: 40}} className={classes.aboutUsHeaderP} component="h4" variant="h5">
-                    If you are a parent, feel free to sign up here. Your child can create their own profile and learn to code through videos. We also have some free videos on our platform besides the courses of the teachers. Everything is explained in a child-friendly and playful way, see for yourself!
+                    <b>If you are a parent</b>, feel free to sign up here. Your child can create their own profile and learn to code through videos. We also have some free videos on our platform besides the courses of the teachers. Everything is explained in a child-friendly and playful way, see for yourself!
                     </Typography>
                     </div>
                 </Grid>
@@ -116,6 +120,8 @@ function AboutUs() {
                 <Typography className={classes.landingHeaderP} component="h2" variant="h5">
                 Anja Ramihone
                 </Typography>
+                <a target="blank" className={classes.link} href="https://www.linkedin.com/in/aramihone/"><LinkedInIcon/></a>
+                <a target="blank" className={classes.link} href="https://github.com/AnjaRL"><GitHubIcon/></a>
                 </div>
                 <div className={classes.divFlow}>
                 <Avatar className={classes.avatar}>
@@ -124,6 +130,8 @@ function AboutUs() {
                 <Typography className={classes.landingHeaderP} component="h2" variant="h5">
                 Joanne Seiler
                 </Typography>
+                <a target="blank" className={classes.link} href="https://www.linkedin.com/in/joanne-seiler/"><LinkedInIcon/></a>
+                <a target="blank" className={classes.link} href="https://github.com/Joanneseiler"><GitHubIcon/></a>
                 </div>
                 </Container>
                
