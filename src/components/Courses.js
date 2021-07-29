@@ -118,7 +118,7 @@ function Courses(props) {
                   </Typography>
 
                   <Typography className={classes.price}>
-                    {course.price} $
+                    {course.price <= 0 ? "Free" : `${course.price}$`}
                   </Typography>
                   <Review
                     className={classes.stars}

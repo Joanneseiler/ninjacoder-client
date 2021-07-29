@@ -16,7 +16,10 @@ import Account from "./components/profile/Account";
 import ParentCourseDetail from "./components/ParentCourseDetail";
 import LoadingIndicator from "./components/LoadingIndicator";
 import { API_URL } from "./config";
-import AboutUs from "./components/AboutUs"
+import AboutUs from "./components/AboutUs";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./components/CheckoutForm";
 
 function App() {
   let history = useHistory();
@@ -25,6 +28,7 @@ function App() {
   const [signInError, setSignInError] = useState(null);
   const [signUpError, setSignUpError] = useState(null);
   const [fetchingUser, setfetchingUser] = useState(true);
+  const promise = loadStripe("pk_test_oKhSR5nslBRnBZpjO6KuzZeX");
 
   const fetchUser = async () => {
     let userResponse = await axios.get(`${API_URL}/api/user`, {
@@ -52,7 +56,7 @@ function App() {
 
   useEffect(() => {
     if (
-      (history.location.pathname.startsWith("/signin")  ||
+      (history.location.pathname.startsWith("/signin") ||
         history.location.pathname === "/signup") &&
       user
     ) {
@@ -220,10 +224,13 @@ function App() {
     history.push("/profile");
   };
 
+  // Handle Stripe Payment
+  const handleStripePayment = async (courseId) => {};
+
   return (
     <div>
       <NavBar user={user} onLogOut={handleLogOut} />
-      
+
       {fetchingUser ? (
         <LoadingIndicator></LoadingIndicator>
       ) : (
@@ -232,7 +239,7 @@ function App() {
             exact
             path={"/"}
             render={() => {
-              return <LandingPage user={user}/>;
+              return <LandingPage user={user} />;
             }}
           />
           <Route
@@ -285,11 +292,11 @@ function App() {
             }}
           />
           <Route
-          path={"/aboutus"}
-          render={() => {
-            return <AboutUs/>
-          }}
-        />
+            path={"/aboutus"}
+            render={() => {
+              return <AboutUs />;
+            }}
+          />
           <Route
             exact
             path={"/parent/:courseId"}
@@ -328,6 +335,17 @@ function App() {
                   onEditCourse={handleEditCourse}
                   {...routeProps}
                 />
+              );
+            }}
+          />
+          <Route
+            exact
+            path={"/checkout/:courseId"}
+            render={(routeProps) => {
+              return (
+                <Elements stripe={promise}>
+                  <CheckoutForm {...routeProps} />
+                </Elements>
               );
             }}
           />

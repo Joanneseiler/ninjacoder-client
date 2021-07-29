@@ -55,11 +55,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function EnrollLink(props) {
-  if (!props.user || !props.user.role || props.user.role !== 'parent') {
+  if (!props.user || !props.user.role || props.user.role !== "parent") {
     return [];
   }
 
-  return <Link to={`/courses/${props.id}/payment`}>Enroll</Link>
+  let courseIdToBuy = props.course._id;
+
+  let isAlredyBooked = props.user.coursesBooked.filter((singleCourseBooked) => {
+    return singleCourseBooked._id === courseIdToBuy;
+  }).length;
+
+  if (isAlredyBooked) {
+    return <p>You've already booked this course</p>;
+  }
+
+  if (props.course.price) {
+    return <Link to={`/checkout/${courseIdToBuy}`}>Checkout</Link>;
+  }
+  return <Link to={`/courses/${courseIdToBuy}/payment`}>Free Enroll</Link>;
 }
 
 function CourseDetail(props) {
@@ -98,9 +111,11 @@ function CourseDetail(props) {
             <Typography>
               <Box>{courseDetail.description}</Box>
             </Typography>
-            <Typography>{courseDetail.price} $</Typography>
+            <Typography>
+              {courseDetail.price <= 0 ? "Free" : `${courseDetail.price} $`}
+            </Typography>
             <Typography>By {courseDetail.tutorId.username}</Typography>
-            <EnrollLink id={courseDetail._id} user={props.user}></EnrollLink>
+            <EnrollLink course={courseDetail} user={props.user}></EnrollLink>
           </Card>
         </Grid>
       </Container>
