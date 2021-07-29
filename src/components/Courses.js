@@ -87,7 +87,11 @@ function CardAction(props) {
   }
 
   return <Link
-    to={`/parent/${props.course._id}`}
+    to={
+      props.currentUrl === "/profile"
+        ? `/parent/${props.course._id}`
+        : `/courses/${props.course._id}`
+    }
     style={{ textDecoration: "none", textColor: "white" }}
   >
     <Button size="medium" color="primary">
