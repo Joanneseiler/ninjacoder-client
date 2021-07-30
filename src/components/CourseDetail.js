@@ -8,7 +8,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import LoadingIndicator from "./LoadingIndicator";
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 const useStyles = makeStyles((theme) => ({
   headline: {
@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     width: "100%",
-    maxWidth: 1024
+    maxWidth: 1024,
     // 16:9
   },
   cardMediaImage: {
     maxWidth: "100%",
-    maxHeight: 512
+    maxHeight: 512,
   },
   courseDescription: {
     marginTop: 16,
     width: "100%",
-    maxWidth: 1024
+    maxWidth: 1024,
   },
   price: {
     marginTop: 16,
@@ -43,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 16,
   },
   checkoutLink: {
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 }));
 
 function EnrollLink(props) {
@@ -59,34 +59,48 @@ function EnrollLink(props) {
   }).length;
 
   if (isAlredyBooked) {
-    return <p>You've already booked this course</p>;
+    return (
+      <p>
+        <b>You've already booked this course</b>
+      </p>
+    );
   }
 
   if (props.course.price) {
-    return <Link className={props.classes.checkoutLink} to={`/checkout/${courseIdToBuy}`}>
-      <Button
-            style={{color: "white"}}
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            startIcon={<ShoppingCartIcon />}
+    return (
+      <Link
+        className={props.classes.checkoutLink}
+        to={`/checkout/${courseIdToBuy}`}
       >
-        Checkout
-      </Button>
-    </Link>;
+        <Button
+          style={{ color: "white" }}
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          startIcon={<ShoppingCartIcon />}
+        >
+          Checkout
+        </Button>
+      </Link>
+    );
   }
-  return <Link className={props.classes.checkoutLink} to={`/courses/${courseIdToBuy}/payment`}>
+  return (
+    <Link
+      className={props.classes.checkoutLink}
+      to={`/courses/${courseIdToBuy}/payment`}
+    >
       <Button
-            style={{color: "white"}}
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
+        style={{ color: "white" }}
+        type="submit"
+        fullWidth
+        variant="contained"
+        color="primary"
       >
         Free Enroll
       </Button>
-    </Link>;
+    </Link>
+  );
 }
 
 function CourseDetail(props) {
@@ -100,6 +114,7 @@ function CourseDetail(props) {
         let response = await axios.get(`${API_URL}/api/courses/${courseId}`, {
           withCredentials: true,
         });
+        await props.onFetchUser();
         setCourseDetail(response.data);
       } catch (err) {
         console.log(err);
@@ -118,7 +133,11 @@ function CourseDetail(props) {
         {/* <Grid xs={12} sm={6} md={4}>
         <Card className={classes.card}> */}
         <CardMedia className={classes.cardMedia}>
-          <img className={classes.cardMediaImage} src={courseDetail.image} alt="course"></img>{" "}
+          <img
+            className={classes.cardMediaImage}
+            src={courseDetail.image}
+            alt="course"
+          ></img>{" "}
         </CardMedia>
         <Typography
           bold
@@ -130,15 +149,24 @@ function CourseDetail(props) {
           {courseDetail.name}
         </Typography>
         <Typography>
-          <Box className={classes.courseDescription}>{courseDetail.description}</Box>
+          <Box className={classes.courseDescription}>
+            {courseDetail.description}
+          </Box>
         </Typography>
         <Typography className={classes.price}>
           {courseDetail.price <= 0 ? "Free" : `${courseDetail.price} $`}
         </Typography>
         <Typography className={classes.author}>
-          Created by <a href={`mailto:${courseDetail.tutorId.email}`}>{courseDetail.tutorId.username}</a>
+          Created by{" "}
+          <a href={`mailto:${courseDetail.tutorId.email}`}>
+            {courseDetail.tutorId.username}
+          </a>
         </Typography>
-        <EnrollLink classes={classes} course={courseDetail} user={props.user}></EnrollLink>
+        <EnrollLink
+          classes={classes}
+          course={courseDetail}
+          user={props.user}
+        ></EnrollLink>
         {/* </Card>
       </Grid> */}
       </Container>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./App.css"
+import "./App.css";
 import { Switch, Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import NotFound from "./components/NotFound";
@@ -309,14 +309,25 @@ function App() {
             exact
             path={"/courses"}
             render={() => {
-              return <Courses currentRole={(user && user.role) ? user.role : null} courses={courses} />;
+              return (
+                <Courses
+                  currentRole={user && user.role ? user.role : null}
+                  courses={courses}
+                />
+              );
             }}
           />
           <Route
             exact
             path={"/courses/:courseId"}
             render={(routeProps) => {
-              return <CourseDetail user={user} {...routeProps} />;
+              return (
+                <CourseDetail
+                  onFetchUser={fetchUser}
+                  user={user}
+                  {...routeProps}
+                />
+              );
             }}
           />
           <Route
