@@ -5,7 +5,9 @@
 ## Description
 
 NinjaCoder provides some free or paid online coding courses videos to children. Courses are added by tutors - teachers or web developers.
+Because our website should be suitable for children, we made our design child-friendly and responsive for smartphones and tablets.  
 Have a look on our website, [here](https://ninja-coder.herokuapp.com/) !
+
 
 ## User Stories
 
